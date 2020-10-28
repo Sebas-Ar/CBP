@@ -8,8 +8,17 @@
     "start": "next start"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.26",
+    "@fortawesome/free-solid-svg-icons": "^5.12.0",
+    "@fortawesome/react-fontawesome": "^0.1.8",
+    "@n8tb1t/use-scroll-position": "^1.0.43",
+    "@sendgrid/mail": "^6.4.0",
     "next": "9.1.6",
+    "nodemailer": "^6.4.2",
+    "nodemailer-sendgrid-transport": "^0.2.0",
     "react": "16.12.0",
-    "react-dom": "16.12.0"
+    "react-dom": "16.12.0",
+    "react-scroll": "^1.7.15",
+    "react-transition-group": "^4.3.0"
   }
 }
