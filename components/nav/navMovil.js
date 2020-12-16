@@ -188,6 +188,15 @@ const NavMovil = () => {
         }
       }
 
+
+      @media screen and (min-width: 721px) {
+
+        nav {
+          display: none;
+        }
+
+      }
+
     `}</style>
   </nav>
   

@@ -66,19 +66,21 @@ const AmbienteDos = (props) => {
     <React.Fragment>
         
         <div className="slider" ref={titulo3}>
-            <h1 style={{
-                transform: visto3 ? 'translate(0)' : 'translate(-100vw)'
-            }}>VIAJA AL PASADO DE PANAMÁ</h1>
-            <p style={{
-                transform: visto3 ? 'translate(0)' : 'translate(100vw)'
-            }}>El salón privado es un espacio cómodo, silencioso y discreto que busca devolveros en el tiempo a una era donde la lucha por mejores posibilidades marcó los cimientos de lo que Panamá es hoy en día. </p>
+            <div className="container">
+                <h1 style={{
+                    transform: visto3 ? 'translate(0)' : 'translate(-100vw)'
+                }}>VIAJA AL PASADO DE PANAMÁ</h1>
+                <p style={{
+                    transform: visto3 ? 'translate(0)' : 'translate(100vw)'
+                }}>El salón privado es un espacio cómodo, silencioso y discreto que busca devolveros en el tiempo a una era donde la lucha por mejores posibilidades marcó los cimientos de lo que Panamá es hoy en día. </p>
+            </div>
         </div>
 
         <div className="titulo" ref={titulo1}>
             <div className="lineatit"></div>
             <h1 style={{
                 transform: visto ? 'translateY(0)' : 'translateY(-100%)'
-            }}>LOREM IPSUM DOLOR ET</h1>
+            }}>SALÓN PRIVADO</h1>
             <div className="lineatit"></div>
         </div>
 
@@ -121,18 +123,27 @@ const AmbienteDos = (props) => {
                 color: white;
                 overflow: hidden;
                 display: grid;
-                grid-template-rows: 5fr 4fr;
+                align-content: center;
                 justify-items: center;
             }
 
-            .slider > h1 {
+            .slider > .container {
+                width: 100%;
+                background-color: #2F1D16aa;
+                padding: 30px 0;
+            }
+
+            .slider  h1 {
+                text-align: center;
+                margin: auto;
                 align-self: flex-end;
                 padding-bottom: 20px;
                 font-size: calc( 35px * var(--sizeDosSlide) );
                 transition: transform 1s;
             }
 
-            .slider > p {
+            .slider p {
+                margin: auto;
                 text-align: center;
                 font-size: calc( 1rem * var(--sizeDosSlide) );
                 width: calc( 400px * var(--sizeDosSlide) );
@@ -175,7 +186,7 @@ const AmbienteDos = (props) => {
                 border-left: 5px solid black;
                 align-self: flex-start;
                 text-align: justify;
-                color: #22222277;
+                color: #222222dd;
                 transition: transform 1s .3s;
                 padding-left: 20px;
                 padding-top: 5px;

@@ -19,27 +19,21 @@ const Layout = (props) => {
 
     useEffect(() => {
         setwidth(screen.width);
+        console.log(screen.width)
     }, []);
 
-    if (width <= 720) {
-        return (
-            <React.Fragment>
-                <NavMovil />
-                <BotonesSocial changeWhats={changeWhats} />
-                <Whatsapp whats={whats} change={change} />
-                { props.children }
-            </React.Fragment>
-        )
-    } else {
-        return (
-            <React.Fragment>
-                <Nav />
-                <BotonesSocial changeWhats={changeWhats} />
-                <Whatsapp whats={whats} change={change} />
-                {props.children}
-            </React.Fragment>
-        )
-    }
+    return (
+        <React.Fragment>
+
+            <Nav />
+            <NavMovil />
+            <BotonesSocial changeWhats={changeWhats} />
+            <Whatsapp whats={whats} change={change} />
+            { props.children }
+
+        </React.Fragment>
+    )
+    
 }
 
 export default Layout

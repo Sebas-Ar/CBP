@@ -69,7 +69,7 @@ const AmbienteTres = (props) => {
                 <div></div>
                 <h2 style={{
                     transform: visto2 ? 'translate(0)' : 'translate(-50vw)'
-                }}>LOREM IPSUM DOLOR</h2>
+                }}>TERRAZA AL MAR</h2>
                 <p style={{
                     transform: visto2 ? 'translateY(0)' : 'translateY(-50vh)'
                     }}>Nuestra terraza del mar es la favorita de nuestros dueños, la vista de la metrópolis es adornada de la costa presidencial, la cual podrás escuchar mientras disfrutas de una cena sin igual.</p>
@@ -92,6 +92,7 @@ const AmbienteTres = (props) => {
                 width: 50%;
                 display: grid;
                 grid-template-columns: 2fr 1fr 3fr;
+                grid-column-gap: 50px;
                 align-self: center;
             }
 
@@ -99,6 +100,7 @@ const AmbienteTres = (props) => {
                 font-size: 36px;
                 padding: 10px;
                 transition: transform 1s;
+                width: 80px;
             }
 
             .texto2 > p {

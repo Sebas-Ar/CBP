@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 
 const AmbienteUno = () => {
 
-    const [text, setText] = useState(0);
+    /* const [text, setText] = useState(0);
 
     const changeText = p => {
         setText(p)
-    }
+    } */
 
 return (
     <React.Fragment>
@@ -18,24 +18,24 @@ return (
 
         <div className="cont1">
             <div className="info1">
-                <img src="/img/cbp-capital-bistro-panama-restaurante-casco-viejo-panama--terraza-roofrop-salon-privado-vista-al-mar-restaurant-bebidas-bar-amb2.jpg" alt="" onClick={() => {changeText(1)}}/>
+                <img src="/img/cbp-capital-bistro-panama-restaurante-casco-viejo-panama--terraza-roofrop-salon-privado-vista-al-mar-restaurant-bebidas-bar-amb2.jpg" alt="" /* onClick={() => {changeText(1)}} *//>
                 <div className="description">
-                    <h2>IPSUM DOLOR ET</h2>
+                    <h2>TERRAZA ROOFTOP</h2>
                     {
-                        text === 0 ?
+                        /* text === 0 ? */
                             <p>El Rooftop de CBP es único no sólo por su increíble vista, sino, porque es el único tercer piso de Casco Antiguo en el que se ingresa caminando desde la calle.</p>
-                            : text === 1 ?
+                            /* : text === 1 ?
                                 <p>Nam doloremque ab cum quae officia ipsum ut dicta praesentium repellendus? Sit quibusdam voluptas ducimus possimus fugiat!</p>
                                 : text === 2 ? 
                                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam doloremque ab cum quae officia ipsum ut dicta praesentium repellendus? Sit quibusdam voluptas ducimus possimus fugiat!</p>
-                                    : <p>Dicta praesentium repellendus? Sit quibusdam voluptas ducimus possimus fugiat!</p>
-                    }       
+                                    : <p>Dicta praesentium repellendus? Sit quibusdam voluptas ducimus possimus fugiat!</p> */
+                    }    
                     
-                    <button onClick={() => { changeText(0) }}>&lsaquo;</button>
+                    <button /* onClick={() => { changeText(0) }} */>&lsaquo;</button>
                 </div>
-                <img src="/img/cbp-capital-bistro-panama-restaurante-casco-viejo-panama--terraza-roofrop-salon-privado-vista-al-mar-restaurant-bebidas-bar-amb3.jpg" alt="" onClick={() => {changeText(2)}}/>
+                <img src="/img/cbp-capital-bistro-panama-restaurante-casco-viejo-panama--terraza-roofrop-salon-privado-vista-al-mar-restaurant-bebidas-bar-amb3.jpg" alt="" /* onClick={() => {changeText(2)}} *//>
                 <div></div>
-                <img src="/img/cbp-capital-bistro-panama-restaurante-casco-viejo-panama--terraza-roofrop-salon-privado-vista-al-mar-restaurant-bebidas-bar-amb.jpg" alt="" onClick={() => {changeText(3)}}/>
+                <img src="/img/cbp-capital-bistro-panama-restaurante-casco-viejo-panama--terraza-roofrop-salon-privado-vista-al-mar-restaurant-bebidas-bar-amb.jpg" alt="" /* onClick={() => {changeText(3)}} *//>
             </div>
         </div>
 
@@ -106,7 +106,6 @@ return (
             .info1 > img {
                 width: 100%;
                 transition: width 1s, box-shadow .5s, transform .5s;
-                cursor: pointer;
             }
 
             h2{
@@ -122,7 +121,7 @@ return (
                 text-align: justify;
                 padding: calc( 20px * var(--sizeUno) );
                 line-height : calc( 20px * var(--sizeUno) );
-                color: #ffffff88;
+                color: #ffffffcc;
             }
 
             button {

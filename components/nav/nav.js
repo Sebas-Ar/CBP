@@ -69,7 +69,6 @@ const Nav = () => {
           font-family: Raleway;
           src: url("/fonts/Raleway-Light.ttf");
       }
-
       
       :global(*) {
         margin: 0;
@@ -126,6 +125,11 @@ const Nav = () => {
       }
 
       @media screen and (max-width: 720px) {
+        
+        nav {
+          display: none;
+        }
+
         :global(:root) {
           --sizeNav: .6;
         }

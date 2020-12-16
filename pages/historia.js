@@ -98,15 +98,15 @@ const Historia = () => {
                 <img className="fondo1" src="/img/cbp-capital-bistro-panama-restaurante-casco-viejo-panama--terraza-roofrop-salon-privado-vista-al-mar-restaurant-bebidas-bar-historia1.jpg" alt=""/>
             <div className="cont1">
                 <div className="info1">
-                        <img className="img1" src="/img/cbp-capital-bistro-panama-restaurante-casco-viejo-panama--terraza-roofrop-salon-privado-vista-al-mar-restaurant-bebidas-bar-historia2.jpg" alt="sala del restaurante"/>
+                    <img className="img1" src="/img/cbp-capital-bistro-panama-restaurante-casco-viejo-panama--terraza-roofrop-salon-privado-vista-al-mar-restaurant-bebidas-bar-historia2.jpg" alt="sala del restaurante"/>
                     <div ref={titulo1}>
                         <h2>CASCO ANTIGUO, CORAZÓN DE PANAMÁ</h2>
-                            <p>Fundada estratégicamente sobre una península en 1673 una vez Panamá La Vieja fue saqueada por el pirata inglés Henry Morgan. <br/><br/>
-                                Centro de vida panameña por más de 300 años, deja un legado de desarrollo arquitectónico español, francés, colonial americano y neoclásico. 
-                            </p>
+                        <p>Fundada estratégicamente sobre una península en 1673 una vez Panamá La Vieja fue saqueada por el pirata inglés Henry Morgan. <br/><br/>
+                            Centro de vida panameña por más de 300 años, deja un legado de desarrollo arquitectónico español, francés, colonial americano y neoclásico. 
+                        </p>
                     </div>
-                    <h1 ref={titulo2}>Lorem ipsum dolor.</h1>
-                        <img className="img2" src="/img/cbp-capital-bistro-panama-restaurante-casco-viejo-panama--terraza-roofrop-salon-privado-vista-al-mar-restaurant-bebidas-bar-historia3.jpg" alt="meero sirviendo un vino"/>
+                    <h1 ref={titulo2}>NUESTRA HISTORÍA</h1>
+                    <img className="img2" src="/img/cbp-capital-bistro-panama-restaurante-casco-viejo-panama--terraza-roofrop-salon-privado-vista-al-mar-restaurant-bebidas-bar-historia3.jpg" alt="meero sirviendo un vino"/>
                 </div>
             </div>
             <div className="slider">
@@ -119,9 +119,9 @@ const Historia = () => {
                     </ul>
                 </div>
                 <h1 ref={titulo3}>Capital Bistró Panamá </h1>
-                    <p>opera desde el edificio donde se instaló el primer de Cuerpo de Bomberos de Panamá, cuando el centro de la ciudad era el actual Casco Antiguo de Panamá, en el siglo XIX. 
-                        • Esta linda causalidad motiva el nombre actual de Capital Bistró Panamá al ser de nuestro interés mantener las siglas C B P que forman parte del edificio histórico en cual operamos. 
-                    </p>
+                <p>opera desde el edificio donde se instaló el primer de Cuerpo de Bomberos de Panamá, cuando el centro de la ciudad era el actual Casco Antiguo de Panamá, en el siglo XIX. 
+                    • Esta linda causalidad motiva el nombre actual de Capital Bistró Panamá al ser de nuestro interés mantener las siglas C B P que forman parte del edificio histórico en cual operamos. 
+                </p>
             </div>
             <div className="cont2">
                 <img src="/img/oreja2.png" alt=""/>
@@ -130,10 +130,10 @@ const Historia = () => {
                     <img src="/img/cocktail-1.png" onClick={() => {onClick(1)}} alt="cóctel"/>
                     <img src="/img/spaguetti-1.png" onClick={() => {onClick(2)}} alt="spaguetti"/>
                     <img src="/img/wine.png" onClick={() => {onClick(3)}} alt="vino"/>
-                    <h4 className="h1" onClick={() => {onClick(0)}}>LOREM IPSUM</h4>
-                    <h4 className="h2" onClick={() => {onClick(1)}}>LOREM IPSUM</h4>
-                    <h4 className="h3" onClick={() => {onClick(2)}}>LOREM IPSUM</h4>
-                    <h4 className="h4" onClick={() => {onClick(3)}}>LOREM IPSUM</h4>
+                    <h4 className="h1" onClick={() => {onClick(0)}}>COCTELES</h4>
+                    <h4 className="h2" onClick={() => {onClick(1)}}>LICORES</h4>
+                    <h4 className="h3" onClick={() => {onClick(2)}}>BEBIDAS</h4>
+                    <h4 className="h4" onClick={() => {onClick(3)}}>PLATOS FUERTES</h4>
                 </div>
                 <img src="/img/oreja1.png" alt="" />
             </div>
@@ -206,7 +206,6 @@ const Historia = () => {
 
                 .sliderImg {
                     width: 100%;
-                    background: red;
                     position: absolute;
                     overflow: hidden;
                 }
@@ -226,19 +225,26 @@ const Historia = () => {
 
                 .slider > h1 {
                     align-self: flex-end;
-                    padding-bottom: 10px;
                     font-size: 65px;
                     transition: transform 1s;
                     z-index:100;
+                    width: 100%;
+                    text-align: center;
+                    background-color: #2F1D16aa;
                 }
 
                 .slider > p {
                     text-align: center;
                     width: 55%;
                     line-height: 25px;
-                    color: #ddd;
+                    color: #eee;
                     transition: transform 1s;
                     z-index:100;
+                    width: 100%;
+                    box-sizing: border-box;
+                    padding: 0 25%;
+                    align-self: flex-start;
+                    background-color: #2F1D16aa;
                 }
 
                 .fondo1 {
