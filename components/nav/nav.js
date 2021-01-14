@@ -80,8 +80,19 @@ const Nav = () => {
         --sizeNav: 1;
       }
 
+      :global(input, button) {
+        outline: none;
+        border: none;
+        border-radius: 0px
+      }
+
+      :global(button) {
+        cursor: pointer;
+      }
+
       nav {
         position: absolute;
+        top: 0;
         width:100%;
         display: grid;
         grid-template-columns: 1fr 1fr;

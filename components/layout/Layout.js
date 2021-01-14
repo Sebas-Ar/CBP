@@ -8,7 +8,7 @@ import Whatsapp from '../social/Whatsapp';
 const Layout = (props) => {
 
     const [whats, setWhats] = useState(false);
-    const [width, setwidth] = useState(0);
+    
     const changeWhats = () => {
         setWhats(!whats)
     }
@@ -16,11 +16,6 @@ const Layout = (props) => {
     const change = (state) => {
         setWhats(state)
     }
-
-    useEffect(() => {
-        setwidth(screen.width);
-        console.log(screen.width)
-    }, []);
 
     return (
         <React.Fragment>
