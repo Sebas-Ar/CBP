@@ -1,7 +1,7 @@
 const bebidas = 
     [
         [
-            ['AGUA PANNA 250 ml', '', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, esse.', ["Fresco", "Frio", "Lorem"]],
+            ['AGUA PANNA 250 ml', '$15', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, esse.', ["Fresco", "Frio", "Lorem"]],
             ['AGUA PANNA 750 ml', '', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, esse.', ["Fresco", "Frio", "Lorem"]],
             ['PERRIER', '', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, esse.', ["Fresco", "Frio", "Lorem"]],
             ['AGUA CON GAS', '', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, esse.', ["Fresco", "Frio", "Lorem"]],

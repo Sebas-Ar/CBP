@@ -12,7 +12,7 @@ const MenuItem = ({item, num, updateItems}) => {
         updateItems(newItemsList)
         
         try {
-            const url = `/api/menu?_id=${item._id}`
+            const url = `/api/menu?_id=${item._id}&name=${item.img.name}`
             const result = await Axios.delete(url)
             console.log(result.data)
         } catch (error) {

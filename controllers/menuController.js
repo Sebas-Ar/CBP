@@ -74,11 +74,14 @@ export const uploadItem = async (req, res) => {
 
 export const deleteItem = async (req, res) => {
     
-    const { _id } = req.query
+    const { _id, name } = req.query
     
     await req.db.collection('menu').deleteOne({ _id: ObjectId(_id)})
+
+    const path = `${process.cwd()}/public/menu-imgs/${name}`
+
+    fs.unlinkSync(path)
     
-    /* await req.dbClient.close() */
     res.status(200).send({message: 'item deleted'})
     
 }

@@ -132,11 +132,9 @@ export const deleteCategory = async (req, res) => {
             {subcategory: subcategoryName}
         ).toArray()
 
-        console.log(subcategoryInMenu.length)
-        
-        if (/* subcategoryInMenu.length */ true) {
+        if (subcategoryInMenu.length) {
                 
-                res.status(400).send('subcategory has not been deleted, there are items in menu')
+                res.status(200).send('subcategory has not been deleted, there are items in menu')
 
         } else {
 
@@ -159,7 +157,7 @@ export const deleteCategory = async (req, res) => {
 
         if (categoryInMenu.length) {
 
-            res.status(400).send({message: 'category has not been deleted, there are items in menu'})
+            res.status(200).send({message: 'category has not been deleted, there are items in menu'})
             
         } else {
             
@@ -170,7 +168,7 @@ export const deleteCategory = async (req, res) => {
             
             if (categorie.subCategories.length) {
 
-                res.status(400).send({message: 'category has not been deleted, the subcategory should be empty'})
+                res.status(200).send({message: 'category has not been deleted, the subcategory should be empty'})
 
             } else {
 

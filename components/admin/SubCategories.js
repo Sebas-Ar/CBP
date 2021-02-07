@@ -56,16 +56,10 @@ const SubCategories = ({updateSubcategoryList, updateSubcategoryName}) => {
 
     const deleteSubcategory = async () => {
         const url = `/api/category?isSubcategory=true&categoryName=${categoryName}&subcategoryName=${subcategoryName}`
-        let response
-        try {
-            response = await Axios.delete(url)
-            console.log(response.data)
-            updateSubcategoryList(response.data.data)
-            updateSubcategoryName('')
-        } catch ({other}) {
-            console.log(other)
-        }
-        
+        const response = await Axios.delete(url)
+        console.log(response.data)
+        updateSubcategoryList(response.data.data)
+        updateSubcategoryName('')
     }
 
     return <ul className="container">
