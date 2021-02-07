@@ -95,11 +95,11 @@ const Historia = () => {
     
     <Layout>
         <div className="content">
-                <img className="fondo1" src="/img/cbp-capital-bistro-panama-restaurante-casco-viejo-panama--terraza-roofrop-salon-privado-vista-al-mar-restaurant-bebidas-bar-historia1.jpg" alt=""/>
+                <div className="fondo1"></div>
             <div className="cont1">
                 <div className="info1">
                     <img className="img1" src="/img/cbp-capital-bistro-panama-restaurante-casco-viejo-panama--terraza-roofrop-salon-privado-vista-al-mar-restaurant-bebidas-bar-historia2.jpg" alt="sala del restaurante"/>
-                    <div ref={titulo1}>
+                    <div className="text-container" ref={titulo1}>
                         <h2>CASCO ANTIGUO, CORAZÓN DE PANAMÁ</h2>
                         <p>Fundada estratégicamente sobre una península en 1673 una vez Panamá La Vieja fue saqueada por el pirata inglés Henry Morgan. <br/><br/>
                             Centro de vida panameña por más de 300 años, deja un legado de desarrollo arquitectónico español, francés, colonial americano y neoclásico. 
@@ -118,8 +118,9 @@ const Historia = () => {
                         <div className="slide4 slide"></div>
                     </ul>
                 </div>
-                <h1 ref={titulo3}>Capital Bistró Panamá </h1>
-                <p>opera desde el edificio donde se instaló el primer de Cuerpo de Bomberos de Panamá, cuando el centro de la ciudad era el actual Casco Antiguo de Panamá, en el siglo XIX. 
+                <h1 ref={titulo3}>Capital Bistró Panamá</h1>
+                <p>• Opera desde el edificio donde se instaló el primer de Cuerpo de Bomberos de Panamá, cuando el centro de la ciudad era el actual Casco Antiguo de Panamá, en el siglo XIX.
+                    <br/><br/> 
                     • Esta linda causalidad motiva el nombre actual de Capital Bistró Panamá al ser de nuestro interés mantener las siglas C B P que forman parte del edificio histórico en cual operamos. 
                 </p>
             </div>
@@ -180,7 +181,8 @@ const Historia = () => {
                 .slide {
                     height: 100%;
                     width: 100%;
-                    background-size: 100% auto;
+                    background-size: cover;
+
                 }
 
                 .slide1 {
@@ -248,7 +250,12 @@ const Historia = () => {
                 }
 
                 .fondo1 {
+                    background-image: url("/img/cbp-capital-bistro-panama-restaurante-casco-viejo-panama--terraza-roofrop-salon-privado-vista-al-mar-restaurant-bebidas-bar-historia1.jpg");
+                    background-size: cover;
+                    background-position: top;
+                    background-repeat: no-repeat;
                     width: 100%;
+                    height: 100vh;
                     z-index:100;
                 }
 
@@ -281,7 +288,7 @@ const Historia = () => {
                     transition: transform 1s;
                 }
 
-                .info1 > div {
+                .text-container {
                     padding: 30px;
                     overflow: hidden;
                 }
@@ -346,7 +353,6 @@ const Historia = () => {
                     display: grid;
                     grid-template-columns: 1fr 1fr 1fr 1fr;
                     grid-template-rows: 4fr 1fr;
-                    height: 200px;
                     transform: translateY(-60px);
                     background: white;
                     padding-top: 50px;
@@ -373,6 +379,163 @@ const Historia = () => {
                     color: white;
                     background-color: #A99767;
                 }
+
+                @media screen and (max-width: 1043px) {
+                    .fondo1 {
+                        background-position: 67% 0%;
+                    }
+                }
+
+                @media screen and (max-width: 1340px) {
+                    .info1 {
+                        width: 80%;
+                    }
+                }
+
+                @media screen and (max-width: 1000px) {
+                    .info1 {
+                        width: 90%;
+                    }
+                }
+
+                @media screen and (max-width: 880px) {
+                    .info1 p {
+                        font-size: 14px;
+                    }
+
+                    .info1 h2 {
+                        font-size: 20px;
+                    }
+
+                    .info1 h1 {
+                        font-size: 40px;
+                    }
+                }
+
+                @media screen and (max-width: 800px) {
+                    .info1 p {
+                        font-size: 12px;
+                    }
+
+                    .info1 h2 {
+                        font-size: 17px;
+                    }
+
+                    .info1 h1 {
+                        font-size: 36px;
+                    }
+                }
+
+                @media screen and (max-width: 700px) {
+
+                    .info1 {
+                        grid-template-columns: 1fr;
+                        grid-template-rows: auto auto auto auto;
+                        transform: translateY(0%);
+                    }
+                    
+                    .info1 > h1 {
+                        grid-row: 1/2;
+                        padding: 0  0 20px 0;
+                    }
+
+                    .cont1 {
+                        height: auto;
+                    }
+
+                    .text-container {
+                        padding: 20px 0;
+                        grid-row: 3/4;
+                        overflow: visible;
+                    }
+
+                    .slider > h1 {
+                        align-self: flex-end;
+                    }
+
+                    .slider > p {
+                        align-self: flex-start;
+                        padding: 0 5%;
+                    }
+
+                    .slider {
+                        grid-template-rows: auto auto;
+                    }
+
+                    .info2 {    
+                        padding: 20px;
+                        grid-template-columns: 1fr 1fr;
+                        grid-template-rows: 2fr 1fr 2fr 1fr;
+                        transform: translateY(0px);
+                    }
+                    
+                    .h1 {
+                        grid-row: 2/3;
+                    }
+
+                    .h2 {
+                        grid-row: 2/3;
+                    }
+
+                    .h3 {
+                        grid-column: 2/3;
+                    }
+
+                    .h4 {
+                        grid-row: 4/5;
+                    }
+
+                    .cont2 > img {
+                        object-fit: scale-down;
+                        width: 100%;
+                        margin: 0;
+                        z-index: 10;
+                    }
+
+                    .cont2 > img:nth-child(3) {
+                        margin: 0;
+                        align-self: flex-end;
+                    }
+                }
+
+                @media screen and (max-width: 460px) {
+
+                    .slider h1 {
+                        font-size: 40px;
+                    }
+
+                    .slider p {
+                        font-size: 12px;
+                    }
+
+                    .info2 {    
+                        grid-template-columns: 1fr;
+                        grid-template-rows: 2fr 1fr 2fr 1fr 2fr 1fr 2fr 1fr;
+                        transform: translateY(0px);
+                        grid-row-gap: 15px;
+                    }
+
+                    .h1, .h2, .h3, .h4 {
+                        margin-bottom: 10px;
+                    }
+                    
+                    .h1 {
+                        grid-row: 2/3;
+                    }
+
+                    .h2 {
+                        grid-row: 4/5;
+                    }
+
+                    .h3 {
+                        grid-column: auto;
+                    }
+
+                    .h4 {
+                        grid-row: 6/7;
+                    }
+                }
+
             `}</style>
         </div>
     </Layout>

@@ -87,7 +87,7 @@ const FormReserv = () => {
 
             form {
                 display: grid;
-                margin: 200px calc(1vmin + 6vw) 100px calc(1vmin + 6vw);
+                margin: 120px calc(1vmin + 6vw) 100px calc(1vmin + 6vw);
                 
             }
 
@@ -129,6 +129,12 @@ const FormReserv = () => {
 
             button:hover {
                 background: rgb(204, 171, 88);
+            }
+
+            @media screen and (max-width: 700px) {
+                form {
+                    grid-column: 1/3;
+                }
             }
         `}</style>
     </form>

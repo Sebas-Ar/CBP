@@ -47,7 +47,7 @@ const Nav = () => {
         <li key={key}>
           <Link href={href}>
             {
-              ((url === '/menu') || (url === '/contacto')) 
+              ((url === '/menu') || (url === '/contacto') || (url === '/reserva')) 
                 ? <a className="link" style={{
                     color: '#A99767',
                     paddingBottom: url === href ? "3px" : "",

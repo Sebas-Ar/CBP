@@ -23,15 +23,16 @@ const Reserva = () => (
                 .content {
                     display: grid;
                     grid-template-columns: 5fr 4fr;
-                    grid-template-rows: 5fr  70px 3fr;
+                    grid-template-rows: 5fr  70px auto;
                 }
 
                 .food {
+                    margin-top: 120px;
                     grid-column: 2/3;
                     grid-row: 1/3;
                     background-image: url("/img/Grupo-117.png");
-                    background-size: auto 100%;
-                    background-position: center;
+                    background-size: auto; 
+                    background-position: right bottom;
                     z-index: 500
                 }
 
@@ -73,6 +74,22 @@ const Reserva = () => (
 
                 h2 {
                     align-self: center;
+                }
+
+                @media screen and (max-width: 700px) {
+
+                    .food {
+                        display: none;
+                    }
+
+                    .map {
+                        grid-template-columns: 1fr;
+                    }
+
+                    .description {
+                        padding: 20px 0;
+                    }
+
                 }
 
                 

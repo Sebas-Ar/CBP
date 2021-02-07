@@ -7,12 +7,18 @@ export const getCategory = async (req, res) => {
 
     if (getCategories) {
 
-        const categories = await req.db.collection('category').find({}, {projection: { _id: 0, category: 1}}).toArray()
+        const categories = await req.db.collection('category').find(
+            {}, 
+            {projection: { _id: 0, category: 1}}
+        ).toArray()
         res.status(200).send({categories})
         
     } else if (getSubCategory) {
         
-        const categories = await req.db.collection('category').findOne({category}, {projection: { _id: 0, subCategories: 1}})
+        const categories = await req.db.collection('category').findOne(
+            {category},
+            {projection: { _id: 0, subCategories: 1}}
+        )
         res.status(200).send(categories )
 
     } else {
@@ -26,7 +32,7 @@ export const getCategory = async (req, res) => {
 
 export const addCategories = async (req, res) => {
     
-    const {category, _id, onSubCategory, subCategory} = req.body
+    const {category, categoryName , onSubCategory, subCategory} = req.body
     
     const categories = await req.db.collection('category').find({}).toArray()
     
@@ -47,14 +53,20 @@ export const addCategories = async (req, res) => {
     
     if (onSubCategory) {
         
-        await req.db.collection('category').findOneAndUpdate({_id: ObjectId(_id)}, {$push: {subCategories: subCategory}})
+        const newCategory = await req.db.collection('category').findOneAndUpdate(
+            {category: categoryName}, 
+            {$push: {subCategories: subCategory}}, 
+            {returnOriginal : false}
+        )
+
         /* await req.dbClient.close() */
         
-        res.status(200).send({message: 'update Subcategory'})
+        res.status(200).send({message: 'update Subcategory', data: newCategory.value.subCategories})
         
     } else {
         
         await req.db.collection('category').insertOne({category, subCategories: []})
+        
         
         /* await req.dbClient.close() */
         res.status(200).send({message: true})
@@ -67,23 +79,112 @@ export const addCategories = async (req, res) => {
 
 export const updateCategory = async (req, res) => {
     
-    const {category, _id} = req.body
+    const {category, newCategory, subcategory, newSubcategory} = req.body
     
-    
-    const item = await req.db.collection('category').findOneAndUpdate({_id: ObjectId(_id)}, {$set: {category}}, {returnOriginal : false})
-    
-    /* await req.dbClient.close() */
-    res.status(200).send({message: 'updated category', data: item.value})
+    if (category && !subcategory) {
+
+        await req.db.collection('category').findOneAndUpdate(
+            {category}, 
+            {$set: {category: newCategory}}
+        )
+
+        await req.db.collection('menu').updateMany(
+            {category},
+            {$set: {category: newCategory}}
+        )
+        
+        
+        
+        res.status(200).send({message: 'updated category'})
+        
+    } else if (subcategory) {
+
+        await req.db.collection('category').findOneAndUpdate(
+            {category}, 
+            {$pull: {subCategories: subcategory}}
+        )
+            
+        await req.db.collection('category').findOneAndUpdate(
+            {category}, 
+            {$push: {subCategories: newSubcategory}}
+        )
+
+        await req.db.collection('menu').updateMany(
+            {subcategory},
+            {$set: {subcategory: newSubcategory}}
+        )
+        
+        res.status(200).send({message: 'updated subcategory'})
+
+    } else {
+
+    }
     
 }
 
 export const deleteCategory = async (req, res) => {
     
-    const {_id} = req.query
+    const {subcategoryName, categoryName, isSubcategory} = req.query
     
-    await req.db.collection('category').deleteOne({_id: ObjectId(_id)})
-    
-    /* await req.dbClient.close() */
-    res.status(200).send({message: 'category has been deleted'})
+    if (isSubcategory) {
+
+        const subcategoryInMenu = await req.db.collection('menu').find(
+            {subcategory: subcategoryName}
+        ).toArray()
+
+        console.log(subcategoryInMenu.length)
+        
+        if (/* subcategoryInMenu.length */ true) {
+                
+                res.status(400).send('subcategory has not been deleted, there are items in menu')
+
+        } else {
+
+            const newCategory = await req.db.collection('category').findOneAndUpdate(
+                {category: categoryName}, 
+                {$pull: {subCategories: subcategoryName}}, 
+                {returnOriginal : false}
+            )
+            
+            res.status(200).send({message: 'Subcategory has been deleted', data: newCategory.value.subCategories})
+
+        }
+        
+    } else {
+        console.log(categoryName)
+
+        const categoryInMenu = await req.db.collection('menu').find(
+            {category: categoryName}
+        ).toArray()
+
+        if (categoryInMenu.length) {
+
+            res.status(400).send({message: 'category has not been deleted, there are items in menu'})
+            
+        } else {
+            
+            const categorie = await req.db.collection('category').findOne(
+                {category: categoryName},
+                {projection: { _id: 0, subCategories: 1}}
+            )
+            
+            if (categorie.subCategories.length) {
+
+                res.status(400).send({message: 'category has not been deleted, the subcategory should be empty'})
+
+            } else {
+
+                await req.db.collection('category').findOneAndDelete(
+                    {category: categoryName}
+                )
+                res.status(200).send({message: 'category has been deleted'})
+
+            }
+
+
+        }
+        
+
+    }
 
 }

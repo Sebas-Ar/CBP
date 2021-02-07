@@ -1,19 +1,42 @@
 import Axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, connect } from "react-redux"
 import { mapStateToProps, mapDispatchToProps } from "../../redux/mapToProps/menuMapToProps";
 
-const SubCategories = ({subCategories, _id}) => {
+const SubCategories = ({updateSubcategoryList, updateSubcategoryName}) => {
 
-    const {categoryName, subcategoryName} = useSelector(state => state.menu)
+    const {categoryName, subcategoryName, subCategoryList} = useSelector(state => state.menu)
 
     const [data, setData] = useState({
-        onSubCategory: true,
-        _id,
+        onSubCategory: true
     })
+    const [newSubcategory, setNewSubcategory] = useState('')
+
+    useEffect(() => {
+        setNewSubcategory(subcategoryName)
+    }, [subcategoryName])
 
     const onChange = e => {
         setData(Object.assign({}, data, {[e.target.name]: e.target.value}))
+    }
+
+    const onChangeUpdate = e => {
+        setNewSubcategory(e.target.value)
+    }
+    
+    const onSubmitUpdate = async e => {
+        e.preventDefault()
+
+        const url = '/api/category'
+        await Axios.put(url, {
+            category: categoryName,
+            subcategory: subcategoryName,
+            newSubcategory
+        })
+        updateSubcategoryList(subCategoryList.map(item => item === subcategoryName ? newSubcategory : item))
+        updateSubcategoryName(newSubcategory)
+
+
     }
 
     const onSubmitAdd = async e => {
@@ -21,22 +44,28 @@ const SubCategories = ({subCategories, _id}) => {
         
         const url = '/api/category'
         try {
-            const result = await Axios.post(url, data)
-            console.log(result.data)
+            const result = await Axios.post(url, {...data, categoryName})
+            updateSubcategoryList(result.data.data)
+            updateSubcategoryName(data.subCategory)
+            setData({...data, subCategory: ''})
             
         } catch (error) {
             console.log(error)   
         }
     }
 
-    const onSubmitUpdate = e => {
-        e.preventDefault()
-    }
-
-    const deleteSubcategory = async (_id, name) => {
-        console.log(_id, name)
-        const url = `/api/category?_id=${_id}&name=${name}`
-        await Axios.delete(url)
+    const deleteSubcategory = async () => {
+        const url = `/api/category?isSubcategory=true&categoryName=${categoryName}&subcategoryName=${subcategoryName}`
+        let response
+        try {
+            response = await Axios.delete(url)
+            console.log(response.data)
+            updateSubcategoryList(response.data.data)
+            updateSubcategoryName('')
+        } catch ({other}) {
+            console.log(other)
+        }
+        
     }
 
     return <ul className="container">
@@ -45,16 +74,16 @@ const SubCategories = ({subCategories, _id}) => {
 
         <li>
             <form onSubmit={onSubmitUpdate}>
-                <input type="text" name="" placeholder={subcategoryName}/>
+                <input type="text" onChange={onChangeUpdate} value={newSubcategory}/>
                 <button type="submit">Actualizar nombre</button>
             </form>
-            <button type="button" onClick={() => deleteSubcategory(subcategoryName, categoryName)}>Eliminar Subcategoria</button>
+            <button type="button" onClick={deleteSubcategory}>Eliminar Subcategoria</button>
         </li>
 
         <li>
             <form onSubmit={onSubmitAdd}>
                 <h3 className="title-add-sub">Agregar Subcategoria</h3>
-                <input type="text" name="subCategory" onChange={onChange}/>
+                <input type="text" name="subCategory" onChange={onChange} value={data.subCategory ? data.subCategory : ''}/>
                 <button type="submit">Agregar Subcategoria</button>
             </form>
         </li>

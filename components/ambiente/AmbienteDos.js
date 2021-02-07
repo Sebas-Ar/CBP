@@ -86,9 +86,16 @@ const AmbienteDos = (props) => {
 
         <div className="cont2">
             <div className="lineas3">
-                <div className="l1"></div>
-                <div className="l1"></div>
-                <div className="l1"></div>
+                <div>
+                    <div className="l1"></div>
+                    <div className="l1"></div>
+                    <div className="l1"></div>
+                </div>
+                <div className="line-wrapper">
+                    <div className="l1"></div>
+                    <div className="l1"></div>
+                    <div className="l1"></div>
+                </div>
             </div>
             <div className="info2">
                 <div className="img img1"></div>
@@ -157,6 +164,10 @@ const AmbienteDos = (props) => {
                 height: 100%;
             }
 
+            .line-wrapper {
+                display: none;
+            }
+
             .l1 {
                 width: 100%;
                 height: 10px;
@@ -192,10 +203,12 @@ const AmbienteDos = (props) => {
                 padding-top: 5px;
                 margin-right: 40px;
             }
+
             .img {
                 width: 310px;
                 height: 100%;
                 background-size: 100% 100%;
+                background-position: center center;
                 transition: width 1s, height 1s, transform 1s, box-shadow 1s;
                 z-index: 1;
             }
@@ -277,7 +290,38 @@ const AmbienteDos = (props) => {
                 background: #aaaaaa;
             }
 
-            @media screen and (max-width: 530px) {
+            @media screen and (max-width: 1100px) {
+
+                .cont2 {
+                    grid-template-columns: 1fr 5fr;
+                    width: 100%;
+                }
+
+                .texto {
+                    grid-column: 1/3;
+                }
+
+                .info2 {
+                    transform: translateY(0%);
+                }
+
+                .cont2 {
+                    margin-top: 0px;
+                    height: auto;
+                }
+            }
+
+            @media screen and (max-width: 700px) {
+                .img {
+                    width: 210px;
+                }
+
+                .info2 {
+                    height: 300px;
+                }
+            }
+
+            @media screen and (max-width: 520px) {
                 :global(:root) {
                     --sizeDosSlide: .8;
                     --sizeDosTit: .8;
@@ -286,12 +330,51 @@ const AmbienteDos = (props) => {
                 .titulo {
                     grid-template-columns: 6fr 11fr 6fr;
                 }
+                
+                .info2 {
+                    height: 500px;
+                    grid-template-columns: 1fr;
+                    grid-template-rows: 1fr 1fr 1fr 1fr;
+                    grid-row-gap: 5px;
+                }
+
+                .img {
+                    margin: 0;
+                }
+
+                .img2 {
+                    justify-self: flex-end;
+                }
+
+                .img4 {
+                    justify-self: flex-end;
+                }
+
+                .lineas3 {
+                    grid-row-gap: 5px;
+                    display: grid;
+                    grid-template-rows: 1fr 1fr;
+                }
+
+                .line-wrapper {
+                    display: block;
+                }
+
             }
 
             @media screen and (max-width: 400px) {
                 :global(:root) {
                     --sizeDosSlide: .6;
                     --sizeDosTit: .6;
+                }
+
+                .texto {
+                    padding-top: 20px;
+                    padding-bottom: 20px;
+                }
+
+                .texto h2 {
+                    margin-right: 40px;
                 }
             }
 

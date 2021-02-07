@@ -22,17 +22,22 @@ export const uploadItem = async (req, res) => {
         form.parse(req, (err, fields, files) => {
             
             if (err) return reject(err)
-            
+
             resolve({
                 form: JSON.parse(fields.dataForm), 
-                img: files.img
+                img: {
+                    name: files.img.name,
+                    path: files.img.path
+                }
             })
             
         })
         
     })    
     
-    const {name, path} = data.img 
+    let {name, path} = data.img
+
+    name = name.replace(/ /, '_')
     
     if (!isImg(name)) return res.status(415).send({message: 'El formato multimedia de los datos enviados no está soportado por el servidor, por lo cual el servidor rechaza la solicitud.'})
     

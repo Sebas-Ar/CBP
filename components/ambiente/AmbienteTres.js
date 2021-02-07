@@ -60,7 +60,7 @@ const AmbienteTres = (props) => {
                     transform: visto1 ? 'translate(0)' : 'translate(-50vw)'
                 }}></div>
                 <div className="imagenes">
-                        <img className="grande" src="/img/cbp-capital-bistro-panama-restaurante-casco-viejo-panama--terraza-roofrop-salon-privado-vista-al-mar-restaurant-bebidas-bar-amb10.jpg" alt="" />
+                    <img className="grande" src="/img/cbp-capital-bistro-panama-restaurante-casco-viejo-panama--terraza-roofrop-salon-privado-vista-al-mar-restaurant-bebidas-bar-amb10.jpg" alt="" />
                     <div className="pequeña peq1"></div>
                     <div className="pequeña peq2"></div>
                 </div>
@@ -91,7 +91,7 @@ const AmbienteTres = (props) => {
             .texto2 {
                 width: 50%;
                 display: grid;
-                grid-template-columns: 2fr 1fr 3fr;
+                grid-template-columns: 1fr 1fr 3fr;
                 grid-column-gap: 50px;
                 align-self: center;
             }
@@ -150,7 +150,8 @@ const AmbienteTres = (props) => {
                 width: 90%;
                 height: 200px;
                 margin: 10px 10px 0 0;
-                background-size: 100% 100%;
+                background-position: center center;
+                background-size: cover;
                 transition: transform 1s, box-shadow 1s;
             }
 
@@ -195,6 +196,51 @@ const AmbienteTres = (props) => {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 grid-template-rows: 5fr 3fr;
+            }
+
+            @media screen and (max-width: 1270px) {
+
+                .texto2 {
+                    grid-template-columns: 0fr 1fr 3fr;
+                }
+
+            }
+            
+
+            @media screen and (max-width: 840px) {
+                .imagenes {
+                    height: 70%;
+                }
+
+                .cont3 {
+                    grid-template-rows: 4fr 2fr 1fr;
+                }
+
+                .texto2 {
+                    width: 100%;
+                    grid-template-columns: 0fr 1fr 3fr;
+                    align-self: flex-start;
+                }
+
+                .texto2 > p{
+                    box-sizing: border-box;
+                    padding: 0 30px;
+                }
+
+                .texto2 > h2 {
+                    font-size: 30px;
+                }
+            }
+
+            @media screen and (max-width: 470px) {
+                .texto2 {
+                    grid-column-gap: 20px;
+                    margin: 20px 0 80px 0;
+                }
+
+                .cont3 {
+                    grid-template-rows: 4fr auto 1fr;
+                }
             }
             
         `}</style>

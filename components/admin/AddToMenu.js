@@ -76,7 +76,7 @@ const AddToMenu = ({updateItems}) => {
 
     return <section className="container">
 
-        <h2>ITEMS</h2>
+        <h2>AGREGAR ITEMS</h2>
 
         <form onSubmit={onSubmitForm}>
             <input type="text" name="title" onChange={onChangeForm}/>

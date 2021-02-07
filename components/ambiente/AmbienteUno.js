@@ -46,21 +46,21 @@ return (
             }
             
             .fondo1 {
+                min-height: 620px;
                 width: 100%;
                 height: 100vh;
                 background: url("/img/cbp-capital-bistro-panama-restaurante-casco-viejo-panama--terraza-roofrop-salon-privado-vista-al-mar-restaurant-bebidas-bar-amb1.jpg");
                 background-size: cover;
                 display: grid;
                 align-items: center;
-                justify-items: center;
                 overflow: hidden;
             }
 
             .linea {
-                align-self: center;
                 width: 100%;
                 border-bottom: 15px solid white;
                 transform: translate(-150%);
+                margin-left: 30vw;
                 animation: deslizarTitulo 1s 1s linear forwards;
             }
 
@@ -156,7 +156,7 @@ return (
                 }
 
                 to {
-                    transform: translate(40%);
+                    transform: translate(0%);
                 }
             }
 
@@ -175,12 +175,20 @@ return (
                     height: calc( 250px * var(--sizeUno) );
                 }
 
+                .linea {
+                    margin-left: 10vw;
+                }
+
             }
 
             @media screen and (max-width: 580px) {
                :global(:root) {
                     --sizeUno: .45;
                 } 
+
+                h1 {
+                    font-size: 50px;
+                }
 
                 .cont1 {
                     height: calc( 300px * var(--sizeUno) );
@@ -216,6 +224,11 @@ return (
                 :global(:root) {
                     --sizeUno: .3;
                 } 
+
+                h1 {
+                    font-size: 40px;
+                    width: 300px;
+                }
 
                 .cont1 {
                     height: calc( 400px * var(--sizeUno) );

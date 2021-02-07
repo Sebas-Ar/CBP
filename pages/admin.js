@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import AddCategory from '../components/admin/AddCategory';
+
 import AddToMenu from '../components/admin/AddToMenu';
 import Category from '../components/admin/Category';
 import MenuList from '../components/admin/MenuList';
@@ -14,13 +13,17 @@ const Admin = () => {
             <div className="margin"></div>
             <img src="/img/cbp-capital-bistro-panama-restaurante-casco-viejo-panama--terraza-roofrop-salon-privado-vista-al-mar-restaurant-bebidas-bar-historia1.jpg" alt=""/>
             <SelectCategory/>
-            <AddCategory/>
             <Category/>    
             <AddToMenu/>
             <MenuList/>
         </Layout>
 
         <style jsx>{`
+            button {
+                display: block;
+                padding: 10px;
+                margin: 10px auto;
+            }
 
             .container {
                 position: relative;
