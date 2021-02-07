@@ -1,12 +1,24 @@
 export const UPDATE_ITEMS = "UPDATE_ITEMS"
+export const UPDATE_ITEM_SELECTED = "UPDATE_ITEM_SELECTED"
 export const UPDATE_CATEGORY_NAME = "UPDATE_CATEGORY_NAME"
 export const UPDATE_SUBCATEGORY_NAME = "UPDATE_SUBCATEGORY_NAME"
 export const UPDATE_CATEGORY_LIST = "UPDATE_CATEGORY_LIST"
 export const UPDATE_SUBCATEGORY_LIST = "UPDATE_SUBCATEGORY_LIST"
+export const UPDATE_IMG_SELECTED = "UPDATE_IMG_SELECTED"
 
 export const updateItems = (itemsList = []) => ({
     type: UPDATE_ITEMS,
     payload: {itemsList}
+})
+
+export const updateItemSelected = (itemSelected = '') => ({
+    type: UPDATE_ITEM_SELECTED,
+    payload: {itemSelected}
+})
+
+export const updateImgSelected = (imgSelected = '') => ({
+    type: UPDATE_IMG_SELECTED,
+    payload: {imgSelected}
 })
 
 export const updateCategoryName = (categoryName = "") => ({

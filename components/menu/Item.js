@@ -12,7 +12,7 @@ const Item = (props) => {
 
             <Comment menu={props.menu} submenu={props.submenu} item={props.item} comments={props.comments} turnOn={props.turnOn}/>
 
-            <img src="/img/bebida.png" alt="" />
+            <img src={`/menu-imgs/${props.img}`} alt="photo de plato" />
 
             <style jsx>{`
 
@@ -28,8 +28,10 @@ const Item = (props) => {
                 }
 
                 article > img {
+                    object-fit: cover;
                     margin: 40px 20px 0px 10px;
                     height: 360px;
+                    width: 250px;
                     justify-self:center;
                     align-self:center;
                 }

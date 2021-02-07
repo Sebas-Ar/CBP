@@ -1,11 +1,16 @@
 import React from 'react'
+import { useSelector, connect } from "react-redux";
+import { mapDispatchToProps, mapStateToProps } from "../../redux/mapToProps/menuMapToProps"
 
 const NavButton = (props) => {
 
     //cambia el menu Principal
     const change = () => {
         props.changeBut(parseInt(props.change))
+        props.updateCategoryName(props.text)
     }
+
+    const {categoryName} = useSelector(state => state.menu)
 
     return (
         <button onClick={change}>
@@ -36,9 +41,9 @@ const NavButton = (props) => {
 
             <style jsx>{`
                 button {
-                    background: ${props.menu === parseInt(props.change) ? "#F1D58C" : ""};
-                    border: ${props.menu === parseInt(props.change) ? "1px solid #F1D58C" : ""};
-                    color: ${props.menu === parseInt(props.change) ? "white" : ""}
+                    background: ${categoryName === props.text ? "#F1D58C" : ""};
+                    border: ${categoryName === props.text ? "1px solid #F1D58C" : ""};
+                    color: ${categoryName === props.text ? "white" : ""}
                 }
             `}</style>
 
@@ -46,4 +51,4 @@ const NavButton = (props) => {
     )
 }
 
-export default NavButton
+export default connect(mapStateToProps, mapDispatchToProps)(NavButton)

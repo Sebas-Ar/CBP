@@ -3,7 +3,9 @@ import {
     updateCategoryName,
     updateSubcategoryName,
     updateCategoryList,
-    updateSubcategoryList
+    updateSubcategoryList,
+    updateItemSelected,
+    updateImgSelected
  } from "../actions/menuActions"
 
  export const mapStateToProps = (state) => ({
@@ -15,5 +17,7 @@ import {
      updateSubcategoryName: updateSubcategoryName,
      updateCategoryName: updateCategoryName,
      updateSubcategoryList: updateSubcategoryList,
-     updateCategoryList: updateCategoryList
+     updateCategoryList: updateCategoryList,
+     updateItemSelected: updateItemSelected,
+     updateImgSelected: updateImgSelected
  }

@@ -39,7 +39,6 @@ const NavMovil = () => {
 
   // change color menu-hamburguer
   const colorHmburger = (urlActual) => {
-    console.log(urlActual)
     const color = (urlActual === '/reserva') || (urlActual === '/menu') || (urlActual === '/contacto')
       ? '#A99767' 
       : '#fff'

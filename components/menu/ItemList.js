@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react'
 
+import { useSelector, connect } from "react-redux";
+import { mapStateToProps, mapDispatchToProps } from "../../redux/mapToProps/menuMapToProps";
+
 const ItemList = (props) => {
 
     //Cambia el Item seleccionado
     const change = () => {
         props.changeItem(parseInt(props.change))
+        props.updateItemSelected(props.title)
+        props.updateImgSelected(props.img)
     }
+
+    const { itemSelected } = useSelector(state => state.menu)
 
     return (
         <li onClick={change}>
@@ -156,16 +163,16 @@ const ItemList = (props) => {
 
             <style jsx>{`
                 li {
-                    color: ${ props.item === parseInt(props.change) ? "#F1D58C" : "#A99767"};
+                    color: ${ props.title === itemSelected ? "#F1D58C" : "#A99767"};
                 }
 
                 li::before {
-                    background: ${ props.item === parseInt(props.change) ? "#F1D58C" : "#A99767"};
+                    background: ${ props.title === itemSelected ? "#F1D58C" : "#A99767"};
                 }
 
                 .info {
-                    height: ${ props.item === parseInt(props.change) ? "140px" : "0px" };
-                    opacity: ${ props.item === parseInt(props.change) ? "1" : "0" };
+                    height: ${ props.title === itemSelected ? "140px" : "0px" };
+                    opacity: ${ props.title === itemSelected ? "1" : "0" };
                 }
 
             `}</style>
@@ -173,4 +180,4 @@ const ItemList = (props) => {
     )
 }
 
-export default ItemList
+export default connect(mapStateToProps, mapDispatchToProps)(ItemList)

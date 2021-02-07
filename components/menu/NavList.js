@@ -1,11 +1,16 @@
 import React from 'react'
+import { useSelector, connect } from "react-redux";
+import { mapDispatchToProps, mapStateToProps } from "../../redux/mapToProps/menuMapToProps"
 
 const NavList = (props) => {
 
     //Cambia el Submenú
     const change = () => {
         props.changeLi(parseInt(props.change))
+        props.updateSubcategoryName(props.text)
     }
+
+    const {subcategoryName} = useSelector(state => state.menu)
 
     return (
         <li onClick={change}>
@@ -32,14 +37,14 @@ const NavList = (props) => {
 
             <style jsx>{`
                 li {
-                    border-bottom: ${props.sub == parseInt(props.change) ? "4px solid white" : ""};
-                    margin: ${props.sub == parseInt(props.change) ? "8px 0" : ""}
+                    border-bottom: ${subcategoryName == props.text ? "4px solid white" : ""};
+                    margin: ${subcategoryName == props.text ? "8px 0" : ""}
                 }
             `}</style>
         </li>
     )
 }
 
-export default NavList
+export default connect(mapStateToProps, mapDispatchToProps)(NavList)
 
 

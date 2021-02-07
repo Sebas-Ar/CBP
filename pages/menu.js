@@ -1,16 +1,81 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import NavMenu from '../components/menu/NavMenu'
 import Layout from '../components/layout/Layout'
+import axios from 'axios';
 
-const Menu = () => {
+// redux
+import { mapDispatchToProps, mapStateToProps } from "../redux/mapToProps/menuMapToProps";
+import { useSelector, connect } from "react-redux";
+
+const Menu = ({
+    updateCategoryList, 
+    updateSubcategoryList, 
+    updateCategoryName, 
+    updateSubcategoryName,
+    updateItems,
+    updateItemSelected,
+    updateImgSelected
+}) => {
 
     //posición del menú principal
     const [menuP, setMenuP] = useState(1)
+    const {
+        categoryName,
+        subcategoryName,
+        subCategoryList
+    } = useSelector(state => state.menu)
+
+    useEffect(() => {
+        getMenu()
+    }, []);
+
+    useEffect(() => {
+        /* console.log(subCategoryList) */
+        if (categoryName && JSON.stringify(subCategoryList[categoryName]) !== '{}') {
+            updateSubcategoryName(subCategoryList[categoryName][0])
+        }
+    }, [categoryName])
+
+    useEffect(() => {
+        if (categoryName && subcategoryName) {
+            getItemList()
+        }
+    }, [subcategoryName])
+
+    const getMenu = async () => {
+        const url = '/api/category'
+        const result = await axios.get(url)
+        const {categories} = result.data
+        let subactegoryList = {}
+        const categoryList = categories.map((cat, i) => {
+            /* if (i === 0) subactegoryList = cat.subCategories */
+            subactegoryList[cat.category] = cat.subCategories
+            return cat.category
+        })
+
+        updateCategoryList(categoryList)
+        updateSubcategoryList(subactegoryList)
+        updateCategoryName(categoryList[0])
+    }
+
+    const getItemList = async () => {
+        const url = `/api/menu?category=${categoryName}&subcategory=${subcategoryName}`
+        const result = await axios.get(url)
+
+        const items = result.data.menu 
+
+        updateItems(items)
+        updateItemSelected(items.length > 0 ? items[0].title : '')
+        updateImgSelected( items.length > 0 ? items[0].img.name : '')
+        
+    }
 
     //Función enviada al NavMenu para cambiar la posición del menú principal
     function change(valor) {
         setMenuP(valor)
     }
+
+    
 
     return (
     
@@ -85,4 +150,4 @@ const Menu = () => {
     )
 }
 
-export default Menu
+export default connect(mapStateToProps, mapDispatchToProps)(Menu)
