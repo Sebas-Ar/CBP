@@ -40,7 +40,7 @@ const Nav = () => {
     <Link href="/">
       <a className="img">
         <img className={url === '/menu' ? 'hiden' : ''} src={(url === '/contacto') || (url === '/reserva') ? '/img/Grupo-119.png' : '/img/Grupo-1101.png'} alt="Logo Capital Bistro Panama"/>
-        <img className={url === '/menu' ? 'visible' : ''} src='/img/Grupo-119.png' alt="Logo Capital Bistro Panama"/>
+        <img className={url === '/menu' ? 'visible' : 'disable'} src='/img/Grupo-119.png' alt="Logo Capital Bistro Panama"/>
       </a>
     </Link>
     <ul>
@@ -130,7 +130,7 @@ const Nav = () => {
         border-bottom: 4px solid ;
       }
 
-      .visible {
+      .visible, .disable {
         display: none
       }
 
