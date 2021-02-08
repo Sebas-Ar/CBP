@@ -55,7 +55,7 @@ const NavMovil = () => {
     </Head> 
     <Link href="/">
       <a className="img">
-        <img src={(url === '/contacto') || (url === '/reserva') ? '/img/Grupo-119.png' : '/img/Grupo-1101.png'} alt="Logo"/>
+        <img src={(url === '/contacto') || (url === '/reserva') || (url === '/menu')? '/img/Grupo-119.png' : '/img/Grupo-1101.png'} alt="Logo"/>
       </a>
     </Link>
     <button onClick={onClick} className="btnmenu">

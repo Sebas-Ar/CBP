@@ -10,6 +10,9 @@ const MenuList = () => {
 
         <ul>
         {
+            itemsList.length === 0 ? <p>No hay Items</p> : null
+        }
+        {
             itemsList.reverse().map((item, index) => (
                 <MenuItem key={index} item={item} num={index}/>
             ))
@@ -19,7 +22,18 @@ const MenuList = () => {
         <style jsx>{`
 
             .container {
-                
+                padding: 20px;
+                box-sizing: border-box;
+                border-radius: 20px;
+                margin: auto;
+                width: 50%;
+                background-color: #111111aa;
+                margin-bottom: 30px;
+            }
+
+            p {
+                text-align: center;
+                color: white;
             }
 
 

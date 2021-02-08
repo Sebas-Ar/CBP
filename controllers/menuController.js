@@ -80,7 +80,9 @@ export const deleteItem = async (req, res) => {
 
     const path = `${process.cwd()}/public/menu-imgs/${name}`
 
-    fs.unlinkSync(path)
+    const existFile = fs.existsSync(path)
+
+    if (existFile) fs.unlinkSync(path)
     
     res.status(200).send({message: 'item deleted'})
     

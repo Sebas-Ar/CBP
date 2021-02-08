@@ -1,15 +1,33 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 
+import { mapStateToProps, mapDispatchToProps } from "../../redux/mapToProps/menuMapToProps";
+import { connect, useSelector } from "react-redux"
+
 const Comment = (props) => {
 
     const [turnOn, setTurnOn] = useState(props.turnOn);
     const [stars, setStars] = useState(0);
     const [data, setData] = useState({});
+    const [commentList, setCommentList] = useState([]);
+
+    const { imgId } = useSelector(state => state.menu)
 
     useEffect(() => {
         setTurnOn(props.turnOn)
     });
+
+    useEffect(() => {
+        if (imgId) {
+            getComments()
+        }
+    }, [imgId])
+
+    const getComments = async () => {
+        const url = `/api/comments?imgId=${imgId}`
+        const result = await axios(url)
+        setCommentList(result.data.commentList.comments)
+    }
 
     const changeStart = (star) => {
         setStars(star)
@@ -22,8 +40,8 @@ const Comment = (props) => {
     const onSubmit = async e => {
         e.preventDefault();
         const url = '/api/comments'
-        const result = await axios.post(url, data)
-        console.log(result)
+        const result = await axios.post(url, {...data, imgId})
+        console.log(result.data)
     }
 
     return (
@@ -46,15 +64,19 @@ const Comment = (props) => {
                 </div>
                 <ul>
                     comentarios anteriores:
-                    <li>
-                        <article>
-                            <img src="https://www.shareicon.net/data/2016/11/14/852267_user_512x512.png" alt="iconon sin mostrar"/>
-                            <div>
-                                <p className="name">name</p>
-                                <p className="comment">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis deleniti eveniet nesciunt, rerum similique nisi sapiente porro quidem sit. Odio.</p>
-                            </div>
-                        </article>
-                    </li>
+                    {
+                        commentList.map((item, i) => (
+                            <li>
+                                <article key={i}>
+                                    <img src="https://www.shareicon.net/data/2016/11/14/852267_user_512x512.png" alt="iconon sin mostrar"/>
+                                    <div>
+                                        <p className="name">{item.name}</p>
+                                        <p className="comment">{item.comment}</p>
+                                    </div>
+                                </article>
+                            </li>
+                        ))
+                    }
                 </ul>
                 <form onSubmit={onSubmit}>
                     <input onChange={onChange} name="name" type="text" placeholder="Nombre"/>
@@ -185,4 +207,4 @@ const Comment = (props) => {
     )
 }
 
-export default Comment
+export default connect(mapStateToProps, mapDispatchToProps)(Comment)

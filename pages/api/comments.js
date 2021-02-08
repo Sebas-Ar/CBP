@@ -1,5 +1,5 @@
 // controllers
-import { uploadComment } from "../../controllers/commentsController";
+import { uploadComment, getComments } from "../../controllers/commentsController";
 
 // middleware
 import middleware from "../../middlewares/withMiddlewares";
@@ -8,7 +8,7 @@ const uploadImg = (req, res) => {
 
     if (req.method === 'GET') {
 
-        /* getItems(req, res) */
+        getComments(req, res)
 
     } else if (req.method === 'POST') {
 

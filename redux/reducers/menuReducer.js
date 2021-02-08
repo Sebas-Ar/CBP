@@ -5,7 +5,8 @@ import {
     UPDATE_CATEGORY_LIST,
     UPDATE_SUBCATEGORY_LIST,
     UPDATE_ITEM_SELECTED,
-    UPDATE_IMG_SELECTED
+    UPDATE_IMG_SELECTED,
+    UPDATE_IMG_ID
  } from "../actions/menuActions";
 
 const menuReducer = (state = {itemsList: [], categoryName: '', subcategoryName: '', itemSelected: '', imgSelected: ''}, action) => {
@@ -24,6 +25,8 @@ const menuReducer = (state = {itemsList: [], categoryName: '', subcategoryName: 
         case UPDATE_SUBCATEGORY_LIST:
             return {...state, ...action.payload}
         case UPDATE_IMG_SELECTED:
+            return {...state, ...action.payload}
+        case UPDATE_IMG_ID:
             return {...state, ...action.payload}
         default:
             return {...state}

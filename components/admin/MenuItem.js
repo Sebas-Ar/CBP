@@ -41,6 +41,18 @@ const MenuItem = ({item, num, updateItems}) => {
                 width: 200px;
             }
 
+            li {
+                list-style: none;
+            }
+
+            h4 {
+                color: white;
+            }
+
+            p {
+                color: white;
+            }
+
         `}</style>
     </li>
 }

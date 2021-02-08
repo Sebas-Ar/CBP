@@ -39,7 +39,8 @@ const Nav = () => {
     </Head> 
     <Link href="/">
       <a className="img">
-        <img src={(url === '/contacto') || (url === '/reserva') ? '/img/Grupo-119.png' : '/img/Grupo-1101.png'} alt="Logo"/>
+        <img className={url === '/menu' ? 'hiden' : ''} src={(url === '/contacto') || (url === '/reserva') ? '/img/Grupo-119.png' : '/img/Grupo-1101.png'} alt="Logo Capital Bistro Panama"/>
+        <img className={url === '/menu' ? 'visible' : ''} src='/img/Grupo-119.png' alt="Logo Capital Bistro Panama"/>
       </a>
     </Link>
     <ul>
@@ -129,9 +130,23 @@ const Nav = () => {
         border-bottom: 4px solid ;
       }
 
+      .visible {
+        display: none
+      }
+
       @media screen and (max-width: 970px) {
         :global(:root) {
           --sizeNav: .75;
+        }
+      }
+
+      @media screen and (max-width: 910px) {
+        .hiden {
+          display: none;
+        }
+
+        .visible {
+          display: block
         }
       }
 

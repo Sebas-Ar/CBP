@@ -14,7 +14,8 @@ const Menu = ({
     updateSubcategoryName,
     updateItems,
     updateItemSelected,
-    updateImgSelected
+    updateImgSelected,
+    updateImgId
 }) => {
 
     //posición del menú principal
@@ -66,7 +67,8 @@ const Menu = ({
 
         updateItems(items)
         updateItemSelected(items.length > 0 ? items[0].title : '')
-        updateImgSelected( items.length > 0 ? items[0].img.name : '')
+        updateImgSelected(items.length > 0 ? items[0].img.name : '')
+        updateImgId(items.length > 0 ? items[0]._id : '') 
         
     }
 
@@ -80,12 +82,12 @@ const Menu = ({
     return (
     
     <Layout> 
-        <div className="content">
+        <div className="container">
             <div className="left">
                 <div className="two">
                     <div className="image">
                         <img className="img1" src={menuP === 1 ? "/img/comida1.png" : menuP == 2 ? "/img/comida2.png" : menuP == 3 ? "/img/comida1.png" : menuP == 4 ? "/img/comida2.png" : "/img/comida2.png"} alt="comida"/>
-                        <img className="img2" src={menuP === 1 ? "/img/comida1.png" : menuP == 2 ? "/img/comida2.png" : menuP == 3 ? "/img/comida2.png" : menuP == 4 ? "/img/comida1.png" : "/img/comida2.png"} alt="comida"/>
+                        <img className="img2" src={menuP === 1 ? "/img/comida2.png" : menuP == 2 ? "/img/comida2.png" : menuP == 3 ? "/img/comida2.png" : menuP == 4 ? "/img/comida1.png" : "/img/comida2.png"} alt="comida"/>
                     </div>
                     <div className="sinColor"></div>
                 </div>
@@ -95,15 +97,16 @@ const Menu = ({
             <NavMenu change={change} />
 
             <style jsx>{`
-                .content {
+                .container {
                     width: 100%;
-                    height:100vh;
-                    display:grid;
+                    height: 100vh;
+                    min-height: 720px;
+                    display: grid;
+                    grid-template-columns: auto 1fr;
                 }
 
                 .left {
-                    width: 40vw;
-                    position: fixed;
+                    width: 35vw;
                     display: grid;
                     grid-template-columns: 1.3fr 1fr;
                 }
@@ -112,7 +115,7 @@ const Menu = ({
                     background: #A99767;
                     display: grid;
                     height: 100vh;
-                    grid-template-rows: 8fr 1fr;
+                    grid-template-rows: auto 100px;
                 }
 
                 .image {
@@ -142,6 +145,46 @@ const Menu = ({
 
                 .sinColor {
                     background: white;
+                }
+
+                @media screen and (max-width: 1140px) {
+
+                    .left {
+                        width: 30vw;
+                    }
+
+                    .img1 {
+                        height:150px;
+                    }
+
+                    .img2 {
+                        height:150px;
+                    }
+                }
+
+                @media screen and (max-width: 970px) {
+
+                    .portada {
+                        display: none;
+                    }
+
+                    .left {
+                        width: 25vw;
+                        grid-template-columns: 1fr;
+                    }
+
+                }
+
+                @media screen and (max-width: 910px) {
+
+                    .container {
+                        grid-template-columns: 1fr
+                    }
+
+                    .left {
+                        display: none;
+                    }
+
                 }
             `}</style>
         </div>

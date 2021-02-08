@@ -10,6 +10,7 @@ const ItemList = (props) => {
         props.changeItem(parseInt(props.change))
         props.updateItemSelected(props.title)
         props.updateImgSelected(props.img)
+        props.updateImgId(props.id)
     }
 
     const { itemSelected } = useSelector(state => state.menu)
@@ -106,13 +107,14 @@ const ItemList = (props) => {
 
                 .comentArea {
                     display: grid;
-                    grid-template-columns: 1fr 1fr;
+                    grid-template-columns: 1fr auto;
                 }
 
                 em {
                     color: #A99767;
                     font-style: normal;
                     cursor: pointer;
+                    margin-right: 10px;
                 }
 
                 li {
@@ -144,19 +146,21 @@ const ItemList = (props) => {
                 }
 
                 .puntuacion {
+                    display: line;
                     position: relative;
+                    overflow: hidden;
                 }
 
                 .promedio {
                     position: absolute;
-                    width: 100%;
-                    height: 25px;
+                    width: 98%;
+                    height: 24px;
                     background: #F1D58C;
+                    z-index: -1; 
                 }
 
                 .stars {
-                    position: absolute;
-                    width: 100%;
+                    height: 25px;
                 }
                 
             `}</style>

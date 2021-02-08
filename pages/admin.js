@@ -1,3 +1,4 @@
+import { useState } from "react"
 
 import AddToMenu from '../components/admin/AddToMenu';
 import Category from '../components/admin/Category';
@@ -5,17 +6,36 @@ import MenuList from '../components/admin/MenuList';
 import SelectCategory from '../components/admin/SelectCategory';
 import Layout from '../components/layout/Layout';
 
+import { mapStateToProps, mapDispatchToProps } from "../redux/mapToProps/menuMapToProps";
+import { useSelector, connect } from "react-redux";
+
 const Admin = () => {
+
+    const [activeCategory, setActiveCategory] = useState(false)
+
+    const {
+        categoryName,
+        subcategoryName
+    } = useSelector(state => state.menu)
 
     return <div className="container">
 
         <Layout>
             <div className="margin"></div>
             <img src="/img/cbp-capital-bistro-panama-restaurante-casco-viejo-panama--terraza-roofrop-salon-privado-vista-al-mar-restaurant-bebidas-bar-historia1.jpg" alt=""/>
-            <SelectCategory/>
-            <Category/>    
-            <AddToMenu/>
-            <MenuList/>
+            <SelectCategory setActiveCategory={setActiveCategory}/>
+            <Category setActiveCategory={setActiveCategory} activeCategory={activeCategory}/>  
+            {/* {
+                categoryName && subcategoryName
+                ?
+                    <> */}
+                        <AddToMenu/>
+                        <MenuList/>
+                    {/* </>
+                :
+                    null
+
+            } */}
         </Layout>
 
         <style jsx>{`
@@ -49,4 +69,4 @@ const Admin = () => {
     </div>
 }
 
-export default Admin
+export default connect(mapStateToProps, mapDispatchToProps)(Admin)

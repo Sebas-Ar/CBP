@@ -79,8 +79,6 @@ const AddToMenu = ({updateItems}) => {
         <h2>AGREGAR ITEMS</h2>
 
         <form onSubmit={onSubmitForm}>
-            <input type="text" name="title" onChange={onChangeForm}/>
-            <input type="text" name="description" onChange={onChangeForm}/>
             <div className="img-container">
                 <button type="button" onClick={emptyForm} className="close"></button>
                 <label className="upload">
@@ -88,6 +86,10 @@ const AddToMenu = ({updateItems}) => {
                     <input className="hidden" id="file" type="file" name="file" onChange={onChangeHandler} accept='image/*'/>
                     <img id='img'/>
                 </label>
+            </div>
+            <div className="inputs">
+                <input className="input" type="text" name="title" onChange={onChangeForm} placeholder="Titulo"/>
+                <textarea className="input" type="text" name="description" onChange={onChangeForm} placeholder="Descripción"/>
             </div>
             <button type="submit">upload</button>
         </form>
@@ -98,15 +100,19 @@ const AddToMenu = ({updateItems}) => {
                 box-sizing: border-box;
                 padding: 20px;
                 border-radius: 20px;
-                background-color: #a99767cc;
                 margin: 30px auto;
                 width: 50%;
-
+                background-color: #111111aa;
             }
 
             h2 {
                 text-align: center;
                 color: white;
+            }
+
+            form {
+                display: grid;
+                grid-template-columns: auto 1fr;
             }
 
             .img-container {
@@ -160,6 +166,35 @@ const AddToMenu = ({updateItems}) => {
 
             .close:hover {
                 transform: scale(1.1);
+            }
+
+            .inputs {
+                padding: 20px;
+            }
+
+            .input {
+                display: block;
+                background-color: unset;
+                border: none;
+                border-bottom: 1px solid white;
+                padding: 5px 10px;
+                color: white;
+                
+            }
+
+            textarea {
+                width: 100%;
+            }
+
+            .input::placeholder {
+                color: white;
+            }
+
+            button {
+                grid-column: 1/3;
+                margin: auto;
+                padding: 5px 10px;
+                border-radius: 5px;
             }
 
 

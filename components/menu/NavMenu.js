@@ -90,11 +90,11 @@ const NavMenu = (props) => {
             </ul>
         </nav>
         
-        <Item menu={menu} submenu={submenu} item={item} comments={comments} turnOn={turnOn} img={imgSelected}>
+        <Item comments={comments} turnOn={turnOn} img={imgSelected}>
             <ul>
                 {   
                     itemsList.map((item, i) => (
-                        <ItemList key={i} comments={comments} changeItem={changeItem} submenu={submenu} item={item} title={item.title} price={''} text={'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, esse.'} category={["Fresco", "Frio", "Lorem"]} change="0" img={item.img.name} />
+                        <ItemList key={i} comments={comments} changeItem={changeItem} submenu={submenu} item={item} title={item.title} price={''} text={'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, esse.'} category={["Fresco", "Frio", "Lorem"]} change="0" id={item._id} img={item.img.name} />
                     ))
                 }
             </ul>
@@ -104,8 +104,8 @@ const NavMenu = (props) => {
         <style jsx>{`
 
             .content {
-                margin: 100px 60px 0 0;
-                justify-self: flex-end;
+                justify-self: center;
+                align-self: center;
                 width: 650px;
                 z-index: 200;
             }
@@ -199,6 +199,24 @@ const NavMenu = (props) => {
                 align-self:center;
             }
 
+            @media screen and (max-width: 700px) {
+                .content {
+                    justify-self: center;
+                    align-self: center;
+                    width: 100%;
+                    z-index: 200;
+                }
+            }
+
+            @media screen and (max-width: 570px) {
+            
+                .content {
+                    margin-top: 100px;
+                }
+
+            }
+
+            
         `}</style>
     
     </div>
