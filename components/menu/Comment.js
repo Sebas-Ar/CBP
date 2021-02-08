@@ -1,9 +1,11 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 
 const Comment = (props) => {
 
     const [turnOn, setTurnOn] = useState(props.turnOn);
     const [stars, setStars] = useState(0);
+    const [data, setData] = useState({});
 
     useEffect(() => {
         setTurnOn(props.turnOn)
@@ -11,6 +13,17 @@ const Comment = (props) => {
 
     const changeStart = (star) => {
         setStars(star)
+    }
+
+    const onChange = e => {
+        setData(Object.assign({}, data, {[e.target.name]: e.target.value}))
+    }
+
+    const onSubmit = async e => {
+        e.preventDefault();
+        const url = '/api/comments'
+        const result = await axios.post(url, data)
+        console.log(result)
     }
 
     return (
@@ -22,9 +35,6 @@ const Comment = (props) => {
                 <svg className="equis" viewBox="0 0 352 512" onClick={props.comments}>
                     <path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z" />
                 </svg> 
-                {props.menu}-
-                {props.submenu}-
-                {props.item}
                 <div className="stars">
                     <svg viewBox="187.421 0 3276.909 560" className="star">
                         <path onClick={() => {changeStart(5)}} className="cinco" d="M3140.361,19.469l-71.422,144.813l-159.797,23.297c-28.656,4.156-40.141,39.484-19.359,59.719l115.609,112.656  l-27.344,159.141c-4.922,28.766,25.375,50.313,50.75,36.859l142.953-75.141l142.953,75.141c25.375,13.344,55.672-8.094,50.75-36.859  l-27.344-159.141l115.609-112.656c20.781-20.234,9.297-55.563-19.359-59.719l-159.797-23.297l-71.422-144.813  C3190.346-6.343,3153.268-6.671,3140.361,19.469z" />
@@ -34,6 +44,23 @@ const Comment = (props) => {
                         <path onClick={() => {changeStart(1)}} className="uno" d="M448.609,19.469l-71.422,144.813l-159.797,23.297c-28.656,4.156-40.141,39.484-19.359,59.719l115.609,112.656  l-27.344,159.141c-4.922,28.766,25.375,50.313,50.75,36.859L480,480.813l142.953,75.141c25.375,13.344,55.672-8.094,50.75-36.859  l-27.344-159.141l115.609-112.656c20.781-20.234,9.297-55.563-19.359-59.719l-159.797-23.297L511.391,19.469  C498.594-6.344,461.516-6.672,448.609,19.469z" />
                     </svg>
                 </div>
+                <ul>
+                    comentarios anteriores:
+                    <li>
+                        <article>
+                            <img src="https://www.shareicon.net/data/2016/11/14/852267_user_512x512.png" alt="iconon sin mostrar"/>
+                            <div>
+                                <p className="name">name</p>
+                                <p className="comment">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis deleniti eveniet nesciunt, rerum similique nisi sapiente porro quidem sit. Odio.</p>
+                            </div>
+                        </article>
+                    </li>
+                </ul>
+                <form onSubmit={onSubmit}>
+                    <input onChange={onChange} name="name" type="text" placeholder="Nombre"/>
+                    <textarea onChange={onChange} name="comment" placeholder="Escribe un comentario..."></textarea>
+                    <button>enviar</button>
+                </form>
             </div>
 
             <style jsx>{`
@@ -101,7 +128,7 @@ const Comment = (props) => {
                 }
 
                 .stars {
-                    margin: 100px;
+                    margin: 0px;
                 }
 
                 .star {
@@ -134,6 +161,22 @@ const Comment = (props) => {
 
                 .cinco:hover, .cinco:hover ~ .cuatro, .cinco:hover ~ .tres, .cinco:hover ~ .dos, .cinco:hover ~ .uno {
                     opacity: 1;
+                }
+
+                article {
+                    display: grid;
+                    grid-template-columns: 1fr auto;
+                }
+
+                img {
+                    height: 40px;
+                    width: 40px;
+                    object-fit: cover;
+                    border-radius: 50%;
+                }
+
+                input {
+                    
                 }
                 
             

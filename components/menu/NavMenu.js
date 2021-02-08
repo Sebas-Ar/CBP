@@ -24,7 +24,7 @@ const NavMenu = (props) => {
     //Item seleccionado
     const [item, setItem] = useState(0);
     //muestra el área de comentarios
-    const [turnOn, setTurnOn] = useState(false);
+    const [turnOn, setTurnOn] = useState(true);
 
     const [subcategories, setSubcategories] = useState([]);
 

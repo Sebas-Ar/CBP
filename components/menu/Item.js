@@ -1,4 +1,4 @@
-import React, {useState ,useEffect} from 'react'
+import React from 'react'
 import Comment from '../../components/menu/Comment'
 
 
@@ -10,9 +10,14 @@ const Item = (props) => {
                 {props.children}
             </div>
 
-            <Comment menu={props.menu} submenu={props.submenu} item={props.item} comments={props.comments} turnOn={props.turnOn}/>
-
-            <img src={`/menu-imgs/${props.img}`} alt="photo de plato" />
+            <Comment item={props.item} comments={props.comments} turnOn={props.turnOn}/>
+            {
+                props.img
+                    ?
+                    <img src={`/menu-imgs/${props.img}`} alt="photo de plato" />
+                    :
+                    null
+            }
 
             <style jsx>{`
 
