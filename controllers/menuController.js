@@ -42,7 +42,7 @@ export const uploadItem = async (req, res) => {
     if (!isImg(name)) return res.status(415).send({message: 'El formato multimedia de los datos enviados no está soportado por el servidor, por lo cual el servidor rechaza la solicitud.'})
     
     const {title, description, categoryName, subcategoryName} = data.form
-    const IMAGES_ROUTE = `${process.cwd()}/public/menu-imgs`
+    const IMAGES_ROUTE = `${process.cwd()}/public/static/menu-imgs`
     
     const folderExist = fs.existsSync(IMAGES_ROUTE)
     if (!folderExist) fs.mkdirSync(IMAGES_ROUTE)
