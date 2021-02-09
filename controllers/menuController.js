@@ -78,7 +78,7 @@ export const deleteItem = async (req, res) => {
     
     await req.db.collection('menu').deleteOne({ _id: ObjectId(_id)})
 
-    const path = `${process.cwd()}/public/menu-imgs/${name}`
+    const path = `${process.cwd()}/public/static/menu-imgs/${name}`
 
     const existFile = fs.existsSync(path)
 
