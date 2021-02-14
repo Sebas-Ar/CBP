@@ -5,7 +5,12 @@ import Layout from '../components/layout/Layout'
 const Reserva = () => (
     <Layout>
         <div className="content">
-            <FormReserv className="form" />
+            {/* <FormReserv className="form" /> */}
+            <div className="iframe-wrapper">
+                <iframe  src="https://us8.eveve.com/tms/DateCovers.php?Est=CapitalBistro&Lang=Spanish" frameborder="0" style={{height: '900px', width: '100%'}}>
+                    Please upgrade your browser
+                </iframe>
+            </div>
             <div className="food"></div>
             {/* <img className="food" src="/img/Grupo-117.png" alt="plato de comida"/> */}
             <div className="map">
@@ -20,6 +25,12 @@ const Reserva = () => (
             </div>
 
             <style jsx>{`
+
+                .iframe-wrapper {
+                    overflow: hidden;
+                    margin-top: 130px;
+                }
+
                 .content {
                     display: grid;
                     grid-template-columns: 5fr 4fr;
@@ -48,7 +59,7 @@ const Reserva = () => (
                     display: grid;
                     grid-template-rows: 3fr 1.5fr 3fr;
                     justify-items:center;
-                    padding: 0 30px;
+                    padding: 30px;
                     box-shadow:5px 5px 10px 1px #777777;
                 }
 
@@ -78,11 +89,13 @@ const Reserva = () => (
 
                 @media screen and (max-width: 700px) {
 
+                    
+
                     .food {
                         display: none;
                     }
 
-                    .map {
+                    .map, .content {
                         grid-template-columns: 1fr;
                     }
 
