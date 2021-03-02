@@ -24,7 +24,7 @@ const MenuItem = ({item, num, updateItems}) => {
 
         <h4>{item.title}</h4>
         <p>{item.description}</p>
-        <img /* src={require(`/static/menu-imgs/${item.img.name}`)} */ alt={item.title}/>
+        <img src={item.img.url} alt={item.title}/>
 
         <button>Editar</button>
         <button onClick={deleteMenuItem}>Eliminar</button>

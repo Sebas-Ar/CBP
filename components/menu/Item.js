@@ -18,7 +18,7 @@ const Item = (props) => {
             {
                 props.img
                     ?
-                    <img src={`/static/menu-imgs/${props.img}`} alt="photo de plato" />
+                    <img src={props.img} alt="photo de plato" />
                     :
                     null
             }

@@ -67,7 +67,7 @@ const Menu = ({
 
         updateItems(items)
         updateItemSelected(items.length > 0 ? items[0].title : '')
-        updateImgSelected(items.length > 0 ? items[0].img.name : '')
+        updateImgSelected(items.length > 0 ? items[0].img.url : '')
         updateImgId(items.length > 0 ? items[0]._id : '') 
         
     }

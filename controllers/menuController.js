@@ -2,6 +2,7 @@ import { IncomingForm } from "formidable";
 import fs from "fs";
 import { ObjectId } from "mongodb";
 import {isImg} from "../utils/isImg";
+import cloudinary from 'cloudinary'
 
 export const getItems = async (req, res) => {
 
@@ -42,16 +43,28 @@ export const uploadItem = async (req, res) => {
     if (!isImg(name)) return res.status(415).send({message: 'El formato multimedia de los datos enviados no está soportado por el servidor, por lo cual el servidor rechaza la solicitud.'})
     
     const {title, description, categoryName, subcategoryName} = data.form
-    const IMAGES_ROUTE = `${process.cwd()}/public/static/menu-imgs`
+    const IMAGE_PATH_FOLDER = `${process.cwd()}/public/static/menu-imgs`
     
-    const folderExist = fs.existsSync(IMAGES_ROUTE)
-    if (!folderExist) fs.mkdirSync(IMAGES_ROUTE)
+    const folderExist = fs.existsSync(IMAGE_PATH_FOLDER)
+    if (!folderExist) fs.mkdirSync(IMAGE_PATH_FOLDER)
     
     const contents = await fs.promises.readFile(path, {
         encoding: 'binary'
     })
+
+    const IMAGE_PATH = `${IMAGE_PATH_FOLDER}/${name}`
     
-    await fs.promises.writeFile(`${IMAGES_ROUTE}/${name}`, contents, 'binary')
+    await fs.promises.writeFile(IMAGE_PATH, contents, 'binary')
+
+    cloudinary.config({
+        cloud_name: 'agua-e-panela-agencia-visual',
+        api_key: '517482543919955',
+        api_secret: '4-CP-HOFM4o3r9TYnS7t0bXXQPc'
+    })
+
+    const result = await cloudinary.v2.uploader.upload(IMAGE_PATH)
+
+    console.log(result)
     
     const NAME_COLLECTION = 'menu'
     const MENU_ITEM = {
@@ -59,7 +72,8 @@ export const uploadItem = async (req, res) => {
         description,
         img: {
             name,
-            path: IMAGES_ROUTE
+            url: result.url,
+            _id: result.public_id
         },
         category: categoryName, 
         subcategory: subcategoryName
