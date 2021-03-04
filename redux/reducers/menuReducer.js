@@ -16,7 +16,9 @@ const menuReducer = (state = {
     subcategoryName: '', 
     itemSelected: '', 
     imgSelected: '',
-    tagList: []
+    tagList: [],
+    categoryList: [],
+    subCategoryList: [],
 }, action) => {
 
     switch (action.type) {

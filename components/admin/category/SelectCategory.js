@@ -60,18 +60,26 @@ const SelectCategory = ({ updateCategoryName, updateSubcategoryName, updateSubca
             <select onChange={selectCategory} value={categoryName}>
                 <option value="">-</option>
                 {
-                    categoryList.map((item, index) => (
-                        <option key={index} value={item.category}>{item.category}</option>
-                    ))
+                    categoryList
+                    ?
+                        categoryList.map((item, index) => (
+                            <option key={index} value={item.category}>{item.category}</option>
+                        ))
+                    :
+                        null
                 }   
             </select>
             <div className="linea"></div>
             <select onChange={selectSubCategory} value={subcategoryName}>
                 <option id={'sub'} value="">-</option>
                 {
-                    subCategoryList.map((item, index) => (
-                        <option key={index} value={item}>{item}</option>
-                    ))
+                    subCategoryList
+                    ?
+                        subCategoryList.map((item, index) => (
+                            <option key={index} value={item}>{item}</option>
+                        ))
+                    :
+                            null
                 }
             </select>
             <svg viewBox="0 0 640 512" onClick={() => setActiveCategory(!activeCategory)}>
