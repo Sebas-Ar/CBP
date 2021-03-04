@@ -1,5 +1,5 @@
 // controllers
-import {getItems, uploadItem, deleteItem} from "../../controllers/menuController";
+import {getItems, uploadItem, deleteItem, updateItem} from "../../controllers/menuController";
 
 // middleware
 import middleware from "../../middlewares/withMiddlewares";
@@ -21,8 +21,12 @@ const uploadImg = (req, res) => {
         uploadItem(req, res)
                 
     } else if (req.method === 'DELETE') {
-
+        
         deleteItem(req, res)
+
+    } else if (req.method === 'PUT') {
+
+        updateItem(req, res)
 
     } else {
 

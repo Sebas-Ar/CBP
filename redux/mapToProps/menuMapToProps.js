@@ -6,7 +6,8 @@ import {
     updateSubcategoryList,
     updateItemSelected,
     updateImgSelected,
-    updateImgId
+    updateImgId,
+    updateTagList
  } from "../actions/menuActions"
 
  export const mapStateToProps = (state) => ({
@@ -21,5 +22,6 @@ import {
      updateCategoryList: updateCategoryList,
      updateItemSelected: updateItemSelected,
      updateImgSelected: updateImgSelected,
-     updateImgId:updateImgId
+     updateImgId:updateImgId,
+     updateTagList:updateTagList
  }

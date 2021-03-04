@@ -6,6 +6,7 @@ export const UPDATE_CATEGORY_LIST = "UPDATE_CATEGORY_LIST"
 export const UPDATE_SUBCATEGORY_LIST = "UPDATE_SUBCATEGORY_LIST"
 export const UPDATE_IMG_SELECTED = "UPDATE_IMG_SELECTED"
 export const UPDATE_IMG_ID = "UPDATE_IMG_ID"
+export const UPDATE_TAG_LIST = "UPDATE_TAG_LIST"
 
 export const updateItems = (itemsList = []) => ({
     type: UPDATE_ITEMS,
@@ -45,4 +46,9 @@ export const updateSubcategoryList = (subCategoryList = []) => ({
 export const updateImgId = (imgId = '') => ({
     type: UPDATE_IMG_ID,
     payload: {imgId}
+})
+
+export const updateTagList = (tagList = []) => ({
+    type: UPDATE_TAG_LIST,
+    payload: {tagList}
 })

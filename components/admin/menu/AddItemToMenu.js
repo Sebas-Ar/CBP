@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
 import axios from "axios"
-import {isImg} from "../../utils/isImg"
+import {isImg} from "../../../utils/isImg"
 import { connect, useSelector } from "react-redux"
-import { mapStateToProps, mapDispatchToProps } from "../../redux/mapToProps/menuMapToProps";
+import { mapStateToProps, mapDispatchToProps } from "../../../redux/mapToProps/menuMapToProps";
+import Loading from '../../loading/Loading';
+import Swal from "sweetalert2"
+import AddTagToItem from './AddTagToItem';
 
-const AddToMenu = ({updateItems}) => {
+const AddItemToMenu = ({updateItems}) => {
 
     const {
         itemsList,
@@ -13,7 +16,11 @@ const AddToMenu = ({updateItems}) => {
     } = useSelector(state => state.menu)
 
     const [selectedFile, setSelectedFile] = useState(undefined)
-    const [dataForm, setDataForm] = useState({});
+    const [dataForm, setDataForm] = useState({
+        tagList: []
+    });
+    const [load, setLoad] = useState(false)
+    const [imgSelected, setImgSelected] = useState(false)
 
     useEffect(() => {
         setDataForm(Object.assign({}, dataForm, {categoryName, subcategoryName}))
@@ -29,10 +36,13 @@ const AddToMenu = ({updateItems}) => {
             const objetURL = URL.createObjectURL(e.target.files[0])
             img.src = objetURL
             img.style.visibility = 'visible'
-            
+            setImgSelected(true)
+
         } else {
             console.log('el archivo debe ser imagen')
             img.style.visibility = 'hidden'
+            setSelectedFile(undefined)
+            setImgSelected(false)
         }
     }
     
@@ -42,6 +52,8 @@ const AddToMenu = ({updateItems}) => {
         const file = document.getElementsByClassName('file')
         img.style.visibility = 'hidden'
         file.value = ''
+        setSelectedFile(undefined)
+        setImgSelected(false)
         
     }
 
@@ -51,32 +63,56 @@ const AddToMenu = ({updateItems}) => {
 
     const onSubmitForm = async e => {
         e.preventDefault()
-        
-        const data = new FormData()
-        data.append('img', selectedFile)
-        data.append('dataForm', JSON.stringify(dataForm))
-        
-        const url = '/api/menu'
-        
-        try {
-            
-            const response = await axios.post(url, data)
-            const newItem = response.data.data[0]
-            
-            let menuCopy = [...itemsList] 
-            menuCopy.unshift(newItem)
-            updateItems(menuCopy.reverse())
+        if (dataForm.title && dataForm.description && selectedFile) {
 
-        } catch (error) {
-            console.error(error)
+            setLoad(true)
+            const data = new FormData()
+            data.append('img', selectedFile)
+            data.append('dataForm', JSON.stringify(dataForm))
+            
+            const url = '/api/menu'
+            
+            try {
+                
+                const response = await axios.post(url, data)
+                const newItem = response.data.data
+                if (response.data.error) {
+                    Swal.fire(
+                        'Error!',
+                        response.data.message,
+                        'warning'
+                    )
+                    return null
+                }
+                let menuCopy = [...itemsList] 
+                menuCopy.unshift(newItem)
+                updateItems(menuCopy.reverse())
+                setDataForm({tagList: []})
+                emptyForm()
+                Swal.fire(
+                    'Agregado!',
+                    'El item ha sido agregado.',
+                    'success'
+                )
+    
+            } catch (error) {
+                console.error(error)
+            } finally {
+                setLoad(false)
+            }
+        } else {
+            Swal.fire(
+                'Error!',
+                'No se pueden dejar campos vacios.',
+                'warning'
+            )
         }
-
         
     }
 
     return <section className="container">
 
-        <h2>AGREGAR ITEMS</h2>
+        <h2>AGREGAR ITEM</h2>
 
         <form onSubmit={onSubmitForm}>
             <div className="img-container">
@@ -88,21 +124,42 @@ const AddToMenu = ({updateItems}) => {
                 </label>
             </div>
             <div className="inputs">
-                <input className="input" type="text" name="title" onChange={onChangeForm} placeholder="Titulo"/>
-                <textarea className="input" type="text" name="description" onChange={onChangeForm} placeholder="Descripción"/>
+                <input className="input title" type="text" name="title" value={dataForm.title ? dataForm.title : ''} onChange={onChangeForm} placeholder="Titulo"/>
+                <textarea className="input" type="text" name="description" value={dataForm.description ? dataForm.description : ''} onChange={onChangeForm} placeholder="Descripción" rows="3"/>
+                <AddTagToItem setDataForm={setDataForm} dataForm={dataForm} />
             </div>
-            <button type="submit">upload</button>
+            <button type="submit">{
+                load
+                ?
+                    <Loading />
+                :
+                    'upload'
+            }</button>
         </form>
+
+        <style jsx>{`
+        
+            .container {
+                height: ${categoryName && subcategoryName ? '420px' : '0px'};
+                padding: ${categoryName && subcategoryName ? '20px' : '0px'};
+            }
+
+            .close {
+                visibility: ${imgSelected ? 'visible' : 'hidden'}
+            }
+        
+        `}</style>
 
         <style jsx>{`
 
             .container {
+                overflow: hidden;
                 box-sizing: border-box;
-                padding: 20px;
                 border-radius: 20px;
                 margin: 30px auto;
                 width: 50%;
                 background-color: #111111aa;
+                transition: height .5s;
             }
 
             h2 {
@@ -115,11 +172,18 @@ const AddToMenu = ({updateItems}) => {
                 grid-template-columns: auto 1fr;
             }
 
+            label > span {
+                visibility: ${imgSelected ? 'hidden' : 'visible'}
+            }
+            span {
+                border: none;
+            }
+
             .img-container {
+                border: 1px solid #aaaaaabb;
                 position: relative;
                 height: 300px;
                 width: 200px;
-                border: 1px solid #00000022;
                 overflow: hidden;
                 border-radius: 12px;
             }
@@ -132,14 +196,16 @@ const AddToMenu = ({updateItems}) => {
                 cursor: pointer;
                 height: 100%;
                 width: 100% ;
+                color: white;
             }
 
             img {
                 position: absolute;
-                border: none;
+                outline: none;
                 object-fit: cover;
                 width: 100%;
                 height: 100%;
+                visibility: hidden;
             }
 
             .hidden {
@@ -153,9 +219,10 @@ const AddToMenu = ({updateItems}) => {
                 height: 20px;
                 width: 20px;
                 background: #fff url('/img/icons/close.svg') no-repeat center center;
+                background-size: 30%;
                 position: absolute;
-                top: 10px;
-                right: 10px;
+                top: 15px;
+                right: 15px;
                 border-radius: 50%;
                 cursor: pointer;
                 border: none;
@@ -172,7 +239,13 @@ const AddToMenu = ({updateItems}) => {
                 padding: 20px;
             }
 
+            .title {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+
             .input {
+                box-sizing: border-box;
                 display: block;
                 background-color: unset;
                 border: none;
@@ -184,22 +257,32 @@ const AddToMenu = ({updateItems}) => {
 
             textarea {
                 width: 100%;
+                outline: none;
             }
 
             .input::placeholder {
                 color: white;
             }
 
-            button {
+            form > button {
                 grid-column: 1/3;
-                margin: auto;
+                margin: 20px auto 0 auto;
                 padding: 5px 10px;
                 border-radius: 5px;
+                transition: background-color .5s;
+                width: 100%;
+                background-color: #aaaaaabb;
+                font-weight: bolder;
+            }
+
+            form > button:hover {
+                background-color: #ddd;
             }
 
 
         `}</style>
+        
     </section>
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddToMenu)
+export default connect(mapStateToProps, mapDispatchToProps)(AddItemToMenu)

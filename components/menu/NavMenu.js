@@ -94,7 +94,7 @@ const NavMenu = (props) => {
             <ul>
                 {   
                     itemsList.map((item, i) => (
-                        <ItemList key={i} comments={comments} changeItem={changeItem} submenu={submenu} item={item} title={item.title} price={''} text={'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, esse.'} category={["Fresco", "Frio", "Lorem"]} change="0" id={item._id} img={item.img.name} />
+                        <ItemList key={i} comments={comments} changeItem={changeItem} submenu={submenu} item={item} title={item.title} price={''} text={item.description} category={item.tagList} change="0" id={item._id} img={item.img.url} />
                     ))
                 }
             </ul>

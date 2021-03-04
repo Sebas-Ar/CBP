@@ -18,7 +18,8 @@ const Category = ({setActiveCategory, activeCategory}) => {
         <style jsx>{`
         
             .container {
-                height: ${activeCategory ? '350px' : '0px'};
+                margin: ${activeCategory ? '30px auto' : 'auto'};
+                height: ${activeCategory ? '700px' : '0px'};
                 padding: ${activeCategory ? '20px' : '0px 20px'};
             }
         
@@ -31,7 +32,6 @@ const Category = ({setActiveCategory, activeCategory}) => {
                 transition: height .5s, padding .5s;
                 box-sizing: border-box;
                 border-radius: 20px;
-                margin: auto;
                 width: 50%;
                 overflow: hidden;
                 position: relative;

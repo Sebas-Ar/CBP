@@ -46,9 +46,12 @@ export const addCategories = async (req, res) => {
         })
     })
     
-    if (repeatCategory || repeatSubCategory) {        
-        /* await req.dbClient.close() */
-        return res.status(400).send({message: false})
+    if (repeatCategory) {        
+        return res.status(200).send({error: true, message: 'la categoría ya se encuentra registrada'})
+    }
+
+    if (repeatSubCategory) {        
+        return res.status(200).send({error: true, message: 'la subcategoría ya se encuentra registrada'})
     }
     
     if (onSubCategory) {
@@ -58,8 +61,6 @@ export const addCategories = async (req, res) => {
             {$push: {subCategories: subCategory}}, 
             {returnOriginal : false}
         )
-
-        /* await req.dbClient.close() */
         
         res.status(200).send({message: 'update Subcategory', data: newCategory.value.subCategories})
         
@@ -67,9 +68,7 @@ export const addCategories = async (req, res) => {
         
         await req.db.collection('category').insertOne({category, subCategories: []})
         
-        
-        /* await req.dbClient.close() */
-        res.status(200).send({message: true})
+        res.status(200).send({message: 'Categoria creada'})
         
     }
     
@@ -115,9 +114,9 @@ export const updateCategory = async (req, res) => {
         )
         
         res.status(200).send({message: 'updated subcategory'})
-
+        
     } else {
-
+        res.status(200).send({message: 'error de envio de categoria y subcategoria'})
     }
     
 }
@@ -134,7 +133,7 @@ export const deleteCategory = async (req, res) => {
 
         if (subcategoryInMenu.length) {
                 
-                res.status(200).send('subcategory has not been deleted, there are items in menu')
+            return res.status(200).json({error: true, message: 'La subcategoría no pudo ser eliminada, primero elimine los items relacionados a esta'})
 
         } else {
 
@@ -144,12 +143,11 @@ export const deleteCategory = async (req, res) => {
                 {returnOriginal : false}
             )
             
-            res.status(200).send({message: 'Subcategory has been deleted', data: newCategory.value.subCategories})
+            return res.status(200).json({message: 'Subcategory has been deleted', data: newCategory.value.subCategories})
 
         }
         
     } else {
-        console.log(categoryName)
 
         const categoryInMenu = await req.db.collection('menu').find(
             {category: categoryName}
@@ -157,7 +155,7 @@ export const deleteCategory = async (req, res) => {
 
         if (categoryInMenu.length) {
 
-            res.status(200).send({message: 'category has not been deleted, there are items in menu'})
+            return res.status(200).send({error: true, message: 'La categoría no pudo ser eliminada, primero elimine los items relacionados a esta'})
             
         } else {
             
@@ -167,15 +165,15 @@ export const deleteCategory = async (req, res) => {
             )
             
             if (categorie.subCategories.length) {
-
-                res.status(200).send({message: 'category has not been deleted, the subcategory should be empty'})
+                
+                return res.status(200).send({error: true, message: 'La categoría no pudo ser eliminada, primero elimine las subcategorias relacionados a esta'})
 
             } else {
 
                 await req.db.collection('category').findOneAndDelete(
                     {category: categoryName}
                 )
-                res.status(200).send({message: 'category has been deleted'})
+                return res.status(200).send({message: 'category has been deleted'})
 
             }
 

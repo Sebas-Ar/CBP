@@ -1,8 +1,7 @@
-import { IncomingForm } from "formidable";
-import fs from "fs";
 import { ObjectId } from "mongodb";
-import {isImg} from "../utils/isImg";
-import cloudinary from 'cloudinary'
+import { isImg } from "../utils/isImg";
+import { formData } from '../utils/getImgForm'
+import { uploadImg, deleteImg } from '../utils/imgControl'
 
 export const getItems = async (req, res) => {
 
@@ -16,88 +15,99 @@ export const getItems = async (req, res) => {
 
 export const uploadItem = async (req, res) => {
     
-    const data = await new Promise((resolve, reject) => {
-        
-        const form = new IncomingForm()
-        
-        form.parse(req, (err, fields, files) => {
-            
-            if (err) return reject(err)
-
-            resolve({
-                form: JSON.parse(fields.dataForm), 
-                img: {
-                    name: files.img.name,
-                    path: files.img.path
-                }
-            })
-            
-        })
-        
-    })    
+    const data = await formData(req)  
     
     let {name, path} = data.img
+    const {title, description, categoryName, subcategoryName, tagList} = data.form
+
+    const existTitle = await req.db.collection('menu').findOne({title})
+
+    if (existTitle) {
+        return res.status(200).json({error: true, message: 'El titulo ya esta en otro item'}) 
+    }
 
     name = name.replace(/ /, '_')
     
     if (!isImg(name)) return res.status(415).send({message: 'El formato multimedia de los datos enviados no está soportado por el servidor, por lo cual el servidor rechaza la solicitud.'})
     
-    const {title, description, categoryName, subcategoryName} = data.form
-    const IMAGE_PATH_FOLDER = `${process.cwd()}/public/static/menu-imgs`
     
-    const folderExist = fs.existsSync(IMAGE_PATH_FOLDER)
-    if (!folderExist) fs.mkdirSync(IMAGE_PATH_FOLDER)
-    
-    const contents = await fs.promises.readFile(path, {
-        encoding: 'binary'
-    })
-
-    const IMAGE_PATH = `${IMAGE_PATH_FOLDER}/${name}`
-    
-    await fs.promises.writeFile(IMAGE_PATH, contents, 'binary')
-
-    cloudinary.config({
-        cloud_name: 'agua-e-panela-agencia-visual',
-        api_key: '517482543919955',
-        api_secret: '4-CP-HOFM4o3r9TYnS7t0bXXQPc'
-    })
-
-    const result = await cloudinary.v2.uploader.upload(IMAGE_PATH)
-
-    console.log(result)
+    const result = await uploadImg(name, path)
     
     const NAME_COLLECTION = 'menu'
     const MENU_ITEM = {
         title,
         description,
         img: {
-            name,
             url: result.url,
             _id: result.public_id
         },
+        tagList,
         category: categoryName, 
         subcategory: subcategoryName
     }
     
-    const newItem = await req.db.collection(NAME_COLLECTION).insertOne(MENU_ITEM)
+    await req.db.collection(NAME_COLLECTION).insertOne(MENU_ITEM)
     
-    /* await req.dbClient.close() */
-    res.status(200).send({message: 'item uploaded', data: newItem.ops})
+    res.status(200).json({message: 'item uploaded', data: MENU_ITEM})
     
 }
 
 export const deleteItem = async (req, res) => {
     
-    const { _id, name } = req.query
+    const { _id } = req.query
     
-    await req.db.collection('menu').deleteOne({ _id: ObjectId(_id)})
+    const response = await req.db.collection('menu').findOneAndDelete({ _id: ObjectId(_id)})
 
-    const path = `${process.cwd()}/public/static/menu-imgs/${name}`
+    await deleteImg(response.value.img._id)
 
-    const existFile = fs.existsSync(path)
-
-    if (existFile) fs.unlinkSync(path)
+    res.status(200).json({message: 'item deleted'})
     
-    res.status(200).send({message: 'item deleted'})
+}
+
+export const updateItem = async (req, res) => {
+
+    const data = await formData(req)
     
+    const {title, description, _id, tagList} = data.form
+    let setting = {}
+    let url = ''
+    if(data.img) {
+
+        let {name, path} = data.img
+
+        name = name.replace(/ /, '_')
+    
+        if (!isImg(name)) return res.status(415).send({message: 'El formato multimedia de los datos enviados no está soportado por el servidor, por lo cual el servidor rechaza la solicitud.'})
+
+        const item = await req.db.collection('menu').findOne({ _id: ObjectId(_id) })
+
+        const public_id = item.img._id
+        await deleteImg(public_id)
+        
+        const result = await uploadImg(name, path)
+        url = result.url
+
+        setting = {
+            title,
+            description,
+            img: {
+                url: result.url,
+                _id: result.public_id
+            },
+            tagList
+        }
+    } else {
+        setting = {
+            title,
+            description,
+            tagList
+        }
+    }
+
+    await req.db.collection('menu').findOneAndUpdate(
+        { _id: ObjectId(_id) }, 
+        {$set: setting}
+    )
+    
+    res.status(200).send({message: 'item updated', url})
 }

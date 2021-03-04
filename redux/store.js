@@ -9,7 +9,8 @@ const initialState = {
         categoryName: "",
         subcategoryName: "",
         categoryList: [],
-        subCategoryList: []
+        subCategoryList: [],
+        tagList: []
     }
 }
 
