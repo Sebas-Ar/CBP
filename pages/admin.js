@@ -16,10 +16,10 @@ const Admin = () => {
         <Layout>
             <div className="margin"></div>
             <img src="/img/cbp-capital-bistro-panama-restaurante-casco-viejo-panama--terraza-roofrop-salon-privado-vista-al-mar-restaurant-bebidas-bar-historia1.jpg" alt=""/>
-            <SelectCategory setActiveCategory={setActiveCategory} activeCategory={activeCategory}/>
-            {/* <Category setActiveCategory={setActiveCategory} activeCategory={activeCategory}/>   */}
+            {/* <SelectCategory setActiveCategory={setActiveCategory} activeCategory={activeCategory}/>
+            <Category setActiveCategory={setActiveCategory} activeCategory={activeCategory}/>  
             <AddItemToMenu/>
-            <ItemList/>
+            <ItemList/> */}
             
         </Layout>
 
