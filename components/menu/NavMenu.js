@@ -7,7 +7,7 @@ import Item from './Item';
 import { useSelector, connect } from "react-redux";
 import { mapStateToProps, mapDispatchToProps } from "../../redux/mapToProps/menuMapToProps";
 
-const NavMenu = (props) => {
+const NavMenu = () => {
 
     const {
         categoryList,
@@ -17,13 +17,6 @@ const NavMenu = (props) => {
         imgSelected
     } = useSelector(state => state.menu)
     
-    //Menu principal seleccionado
-    const [menu, setMenu] = useState(0);
-    //submenú seleccionado
-    const [submenu, setSubmenu] = useState(0);
-    //Item seleccionado
-    const [item, setItem] = useState(0);
-    //muestra el área de comentarios
     const [turnOn, setTurnOn] = useState(true);
 
     const [subcategories, setSubcategories] = useState([]);
@@ -36,37 +29,6 @@ const NavMenu = (props) => {
         
     }, [categoryName, subCategoryList])
 
-    //Obtiene la ubicacion del menú principal del elemnto padre
-    /* useEffect(() => {
-        props.change(menu)
-    }); */
-
-    //Cambia el submenu y el item a la posicion '0' al cambiar el munú principal
-    /* useEffect(() => {
-        setItem(0)
-        setSubmenu(0)
-    }, [menu]); */
-    
-    //Cambia el item a la posicion '0' al cambiar el submunú
-    /* useEffect(() => {
-        setItem(0)
-    }, [submenu]); */
-
-    //Funcion pasada a los NavButton para cambiar el menú principal
-    function changeBut(men) {
-        setMenu(men)
-    }
-
-    //Funcion pasada a los NavList para cambiar el submenú
-    function changeLi(sub) {
-        setSubmenu(sub)
-    }
-
-    //Funcion pasada a los ItemList para cambiar el item
-    function changeItem(it) {
-        setItem(it)
-    }
-
     //Funcion pasada a item para activar/desactivar lo comentarios
     const comments = () => {
         setTurnOn(!turnOn)
@@ -78,13 +40,13 @@ const NavMenu = (props) => {
         <nav>
             {
                 categoryList.map((item, i) => (
-                    <NavButton key={i} changeBut={changeBut} menu={menu} text={item} change={i} /> 
+                    <NavButton key={i} text={item}/> 
                 ))
             }
             <ul className="subcategory" >
             {
                 subcategories.map((item, i) => (
-                        <NavList key={i} changeLi={changeLi} sub={submenu} text={item} change={i} />
+                    <NavList key={i} text={item}/>
                 ))
             }
             </ul>
@@ -94,7 +56,7 @@ const NavMenu = (props) => {
             <ul>
                 {   
                     itemsList.map((item, i) => (
-                        <ItemList key={i} comments={comments} changeItem={changeItem} submenu={submenu} item={item} title={item.title} price={''} text={item.description} category={item.tagList} change="0" id={item._id} img={item.img.url} />
+                        <ItemList key={i} comments={comments} item={item} title={item.title} text={item.description} tagList={item.tagList} img={item.img.url} />
                     ))
                 }
             </ul>

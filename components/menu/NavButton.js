@@ -2,19 +2,18 @@ import React from 'react'
 import { useSelector, connect } from "react-redux";
 import { mapDispatchToProps, mapStateToProps } from "../../redux/mapToProps/menuMapToProps"
 
-const NavButton = (props) => {
+const NavButton = ({text, updateCategoryName}) => {
 
     //cambia el menu Principal
     const change = () => {
-        props.changeBut(parseInt(props.change))
-        props.updateCategoryName(props.text)
+        updateCategoryName(text)
     }
 
     const {categoryName} = useSelector(state => state.menu)
 
     return (
         <button onClick={change}>
-            {props.text}
+            {text}
             <span className="flecha">&#9660;</span>
 
             <style jsx>{`
@@ -41,9 +40,9 @@ const NavButton = (props) => {
 
             <style jsx>{`
                 button {
-                    background: ${categoryName === props.text ? "#F1D58C" : ""};
-                    border: ${categoryName === props.text ? "1px solid #F1D58C" : ""};
-                    color: ${categoryName === props.text ? "white" : ""}
+                    background: ${categoryName === text ? "#F1D58C" : ""};
+                    border: ${categoryName === text ? "1px solid #F1D58C" : ""};
+                    color: ${categoryName === text ? "white" : ""}
                 }
             `}</style>
 

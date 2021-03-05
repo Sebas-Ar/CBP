@@ -3,14 +3,12 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, connect } from "react-redux";
 import { mapStateToProps, mapDispatchToProps } from "../../redux/mapToProps/menuMapToProps";
 
-const ItemList = (props) => {
+const ItemList = ({title, text, img, tagList, comments, updateItemSelected, updateImgSelected}) => {
 
     //Cambia el Item seleccionado
     const change = () => {
-        props.changeItem(parseInt(props.change))
-        props.updateItemSelected(props.title)
-        props.updateImgSelected(props.img)
-        props.updateImgId(props.id)
+        updateItemSelected(title)
+        updateImgSelected(img)
     }
 
     const { itemSelected } = useSelector(state => state.menu)
@@ -18,21 +16,21 @@ const ItemList = (props) => {
     return (
         <li onClick={change}>
 
-            <h5>{props.title}</h5>
+            <h5>{title}</h5>
             <div className="info">
                 <div>
                     {
-                        props.category.map(categoy => (
-                            <span key={categoy}>{categoy}</span>
+                        tagList.map((tag, index) => (
+                            <span key={index}>{tag}</span>
                         ))
                     }
                 </div>
                 <div className="description">
                     <div className="linea"></div>
-                    <p>{props.text}</p>
+                    <p>{text}</p>
                 </div>
                 <div className="comentArea">
-                    <em onClick={props.comments}>comentarios</em>
+                    <em onClick={comments}>comentarios</em>
                     <div className="puntuacion">
                         <div className="promedio">
                         </div>
@@ -167,16 +165,16 @@ const ItemList = (props) => {
 
             <style jsx>{`
                 li {
-                    color: ${ props.title === itemSelected ? "#F1D58C" : "#A99767"};
+                    color: ${ title === itemSelected ? "#F1D58C" : "#A99767"};
                 }
 
                 li::before {
-                    background: ${ props.title === itemSelected ? "#F1D58C" : "#A99767"};
+                    background: ${ title === itemSelected ? "#F1D58C" : "#A99767"};
                 }
 
                 .info {
-                    height: ${ props.title === itemSelected ? "140px" : "0px" };
-                    opacity: ${ props.title === itemSelected ? "1" : "0" };
+                    height: ${ title === itemSelected ? "140px" : "0px" };
+                    opacity: ${ title === itemSelected ? "1" : "0" };
                 }
 
             `}</style>

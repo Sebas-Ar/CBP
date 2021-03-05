@@ -18,8 +18,6 @@ const Menu = ({
     updateImgId
 }) => {
 
-    //posición del menú principal
-    const [menuP, setMenuP] = useState(1)
     const {
         categoryName,
         subcategoryName,
@@ -31,7 +29,6 @@ const Menu = ({
     }, []);
 
     useEffect(() => {
-        /* console.log(subCategoryList) */
         if (categoryName && JSON.stringify(subCategoryList[categoryName]) !== '{}') {
             updateSubcategoryName(subCategoryList[categoryName][0])
         }
@@ -48,8 +45,7 @@ const Menu = ({
         const result = await axios.get(url)
         const {categories} = result.data
         let subactegoryList = {}
-        const categoryList = categories.map((cat, i) => {
-            /* if (i === 0) subactegoryList = cat.subCategories */
+        const categoryList = categories.map( cat => {
             subactegoryList[cat.category] = cat.subCategories
             return cat.category
         })
@@ -72,13 +68,6 @@ const Menu = ({
         
     }
 
-    //Función enviada al NavMenu para cambiar la posición del menú principal
-    function change(valor) {
-        setMenuP(valor)
-    }
-
-    
-
     return (
     
     <Layout> 
@@ -86,15 +75,15 @@ const Menu = ({
             <div className="left">
                 <div className="two">
                     <div className="image">
-                        <img className="img1" src={menuP === 1 ? "/img/comida1.png" : menuP == 2 ? "/img/comida2.png" : menuP == 3 ? "/img/comida1.png" : menuP == 4 ? "/img/comida2.png" : "/img/comida2.png"} alt="comida"/>
-                        <img className="img2" src={menuP === 1 ? "/img/comida2.png" : menuP == 2 ? "/img/comida2.png" : menuP == 3 ? "/img/comida2.png" : menuP == 4 ? "/img/comida1.png" : "/img/comida2.png"} alt="comida"/>
+                        <img className="img1" src="/img/comida1.png" alt="comida"/>
+                        <img className="img2" src="/img/comida2.png" alt="comida"/>
                     </div>
                     <div className="sinColor"></div>
                 </div>
                 <div className="portada"></div>
             </div>
 
-            <NavMenu change={change} />
+            <NavMenu />
 
             <style jsx>{`
                 .container {

@@ -4,21 +4,19 @@ import Comment from '../../components/menu/Comment'
 import { mapStateToProps, mapDispatchToProps } from "../../redux/mapToProps/menuMapToProps";
 import { useSelector, connect } from "react-redux";
 
-const Item = (props) => {
-
-    const { imgId } = useSelector(state => state.menu)
+const Item = ({children, img}) => {
 
     return (
         <article>
             <div>
-                {props.children}
+                {children}
             </div>
 
             {/* <Comment item={props.item} comments={props.comments} turnOn={props.turnOn}/> */}
             {
-                props.img
+                img
                     ?
-                    <img src={props.img} alt="photo de plato" />
+                    <img src={img} alt="photo de plato" />
                     :
                     null
             }
