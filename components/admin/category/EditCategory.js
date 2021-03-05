@@ -92,7 +92,7 @@ const EditCategory = ({updateCategoryList, updateCategoryName}) => {
                 null
 
         }
-        {/* <AddCategory/> */}
+        <AddCategory/>
         <br/>
         <SubCategories/>
         <br/>
