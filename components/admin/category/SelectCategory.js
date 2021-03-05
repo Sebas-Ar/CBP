@@ -14,9 +14,9 @@ const SelectCategory = ({ updateCategoryName, updateSubcategoryName, updateSubca
 
     
     useEffect(() => {
-        updateSubcategoryName('')
+        /* updateSubcategoryName('')
         const option = document.getElementById('sub')
-        option.selected = true
+        option.selected = true */
     }, [categoryName]);
     
     useEffect(() => {
