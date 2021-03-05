@@ -20,7 +20,7 @@ const SelectCategory = ({ updateCategoryName, updateSubcategoryName, updateSubca
     }, [categoryName]);
     
     useEffect(() => {
-        /* getCategory()   */      
+        getCategory()        
     }, [])
 
     useEffect(() => {
@@ -30,7 +30,8 @@ const SelectCategory = ({ updateCategoryName, updateSubcategoryName, updateSubca
     const getCategory = async () => {
         const url = '/api/category?getCategories=1'
         const result = await Axios.get(url)
-        updateCategoryList(result.data.categories)
+        console.log(result)
+        /* updateCategoryList(result.data.categories) */
     }
     
     const getItems = async () => {
