@@ -60,7 +60,7 @@ const SelectCategory = ({ updateCategoryName, updateSubcategoryName, updateSubca
             <select onChange={selectCategory} value={categoryName}>
                 <option value="">-</option>
                 {
-                    categoryList
+                    categoryList && categoryList.length
                     ?
                         categoryList.map((item, index) => (
                             <option key={index} value={item.category}>{item.category}</option>
@@ -73,7 +73,7 @@ const SelectCategory = ({ updateCategoryName, updateSubcategoryName, updateSubca
             <select onChange={selectSubCategory} value={subcategoryName}>
                 <option id={'sub'} value="">-</option>
                 {
-                    subCategoryList
+                    subCategoryList && subCategoryList.length
                     ?
                         subCategoryList.map((item, index) => (
                             <option key={index} value={item}>{item}</option>
