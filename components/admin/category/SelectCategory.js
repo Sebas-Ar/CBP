@@ -24,7 +24,7 @@ const SelectCategory = ({ updateCategoryName, updateSubcategoryName, updateSubca
     }, [])
 
     useEffect(() => {
-        /* getItems() */
+        getItems()
     }, [subcategoryName]);
 
     const getCategory = async () => {
