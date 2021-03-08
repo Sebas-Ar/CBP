@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import NavMenu from '../components/menu/NavMenu'
+import MenuWrapper from '../components/menu/MenuWrapper'
 import Layout from '../components/layout/Layout'
 import axios from 'axios';
 
@@ -83,7 +83,7 @@ const Menu = ({
                 <div className="portada"></div>
             </div>
 
-            <NavMenu />
+            <MenuWrapper />
 
             <style jsx>{`
                 .container {
