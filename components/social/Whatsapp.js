@@ -6,7 +6,7 @@ const Whatsapp = (props) => {
     const [activacion, setActivacion] = useState(props.whats);
     const [mensaje, setMensaje] = useState("");
     const [dispositivo, setDispositivo] = useState("");
-    const [cuenta, setCuenta] = useState({total: 0, desk: 0, movil: 0});
+    const [cuenta, setCuenta] = useState({ total: 0, desk: 0, movil: 0 });
 
     useEffect(() => {
         setActivacion(props.whats)
@@ -14,22 +14,22 @@ const Whatsapp = (props) => {
 
     useEffect(() => {
         var mobile = {
-            Android: function () {
+            Android() {
                 return navigator.userAgent.match(/Android/i);
             },
-            BlackBerry: function () {
+            BlackBerry() {
                 return navigator.userAgent.match(/BlackBerry/i);
             },
-            iOS: function () {
+            iOS() {
                 return navigator.userAgent.match(/iPhone|iPad|iPod/i);
             },
-            Opera: function () {
+            Opera() {
                 return navigator.userAgent.match(/Opera Mini/i);
             },
-            Windows: function () {
+            Windows() {
                 return navigator.userAgent.match(/IEMobile/i);
             },
-            any: function () {
+            any() {
                 return (mobile.Android() || mobile.BlackBerry() || mobile.iOS() || mobile.Opera() || mobile.Windows());
             }
         };
@@ -59,12 +59,12 @@ const Whatsapp = (props) => {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        var msg = mensaje;
-        var numero = "573213998925";
+        const msg = mensaje;
+        const numero = "";
 
-        if ( dispositivo !== 'Desktop' ){
+        if (dispositivo !== 'Desktop') {
             window.open(`https://api.whatsapp.com/send?phone=${numero}&text=${msg}`, '_blank');
-        }else {
+        } else {
             window.open(`https://web.whatsapp.com/send?phone=${numero}&text=${msg}`, '_blank');
         }
 
@@ -80,13 +80,13 @@ const Whatsapp = (props) => {
         <div className="Whatsapp">
             <div className="formulario" id="toggle">
                 <button className="close" onClick={toggleWhatsapp}>
-                    <svg  className="equis" viewBox="0 0 352 512">
+                    <svg className="equis" viewBox="0 0 352 512">
                         <path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z" />
-                    </svg>  
+                    </svg>
                 </button>
                 <div>
                     {/* <div className="logo"> */}
-                        <img src="/img/Grupo-1101.png" alt="logo"></img>
+                    <img src="/img/Grupo-1101.png" alt="logo" />
                     {/* </div> */}
                     <p className="escribenos">Escribenos, pronto resolveremos tus dudas</p>
                     <p className="color">Hola ¿Cómo podemos ayudarte?</p>
@@ -96,7 +96,7 @@ const Whatsapp = (props) => {
                         type="text"
                         placeholder="Dejanos un mensaje aquí..."
                         onChange={onChange}
-                        value={mensaje}></input>
+                        value={mensaje} />
                     <button type="submit" className="enviar"><svg className="flecha" viewBox="0 0 448 512"><path fill="currentColor" d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z" /></svg></button>
                 </form>
             </div>
