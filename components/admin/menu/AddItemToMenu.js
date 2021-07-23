@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import axios from "axios"
-import {isImg} from "../../../utils/isImg"
 import { connect, useSelector } from "react-redux"
+import Swal from "sweetalert2"
+import { isImg } from "../../../utils/isImg"
 import { mapStateToProps, mapDispatchToProps } from "../../../redux/mapToProps/menuMapToProps";
 import Loading from '../../loading/Loading';
-import Swal from "sweetalert2"
 import AddTagToItem from './AddTagToItem';
 
-const AddItemToMenu = ({updateItems}) => {
+const AddItemToMenu = ({ updateItems }) => {
 
     const {
         itemsList,
@@ -23,15 +23,16 @@ const AddItemToMenu = ({updateItems}) => {
     const [imgSelected, setImgSelected] = useState(false)
 
     useEffect(() => {
-        setDataForm(Object.assign({}, dataForm, {categoryName, subcategoryName}))
+        setDataForm({ ...dataForm, categoryName, subcategoryName })
+        console.log(categoryName, subcategoryName)
     }, [categoryName, subcategoryName])
 
     const onChangeHandler = e => {
-        
+
         const img = document.getElementById('img')
-        
+
         if (isImg(e.target.files[0]?.name)) {
-            
+
             setSelectedFile(e.target.files[0])
             const objetURL = URL.createObjectURL(e.target.files[0])
             img.src = objetURL
@@ -45,35 +46,36 @@ const AddItemToMenu = ({updateItems}) => {
             setImgSelected(false)
         }
     }
-    
+
     const emptyForm = () => {
-        
+
         const img = document.getElementById('img')
         const file = document.getElementsByClassName('file')
         img.style.visibility = 'hidden'
         file.value = ''
         setSelectedFile(undefined)
         setImgSelected(false)
-        
+
     }
 
     const onChangeForm = e => {
-        setDataForm(Object.assign({}, dataForm, {[e.target.name]: e.target.value}))
+        setDataForm({ ...dataForm, [e.target.name]: e.target.value })
     }
 
     const onSubmitForm = async e => {
         e.preventDefault()
         if (dataForm.title && dataForm.description && selectedFile) {
+            console.log(dataForm)
 
             setLoad(true)
             const data = new FormData()
             data.append('img', selectedFile)
             data.append('dataForm', JSON.stringify(dataForm))
-            
+
             const url = '/api/menu'
-            
+
             try {
-                
+
                 const response = await axios.post(url, data)
                 const newItem = response.data.data
                 if (response.data.error) {
@@ -84,17 +86,17 @@ const AddItemToMenu = ({updateItems}) => {
                     )
                     return null
                 }
-                let menuCopy = [...itemsList] 
+                const menuCopy = [...itemsList]
                 menuCopy.unshift(newItem)
                 updateItems(menuCopy.reverse())
-                setDataForm({tagList: []})
+                setDataForm({ tagList: [], categoryName, subcategoryName })
                 emptyForm()
                 Swal.fire(
                     'Agregado!',
                     'El item ha sido agregado.',
                     'success'
                 )
-    
+
             } catch (error) {
                 console.error(error)
             } finally {
@@ -107,7 +109,7 @@ const AddItemToMenu = ({updateItems}) => {
                 'warning'
             )
         }
-        
+
     }
 
     return <section className="container">
@@ -116,23 +118,23 @@ const AddItemToMenu = ({updateItems}) => {
 
         <form onSubmit={onSubmitForm}>
             <div className="img-container">
-                <button type="button" onClick={emptyForm} className="close"></button>
+                <button type="button" onClick={emptyForm} className="close" />
                 <label className="upload">
                     <span>Seleccionar imagen</span>
-                    <input className="hidden" id="file" type="file" name="file" onChange={onChangeHandler} accept='image/*'/>
-                    <img id='img'/>
+                    <input className="hidden" id="file" type="file" name="file" onChange={onChangeHandler} accept='image/*' />
+                    <img id='img' />
                 </label>
             </div>
             <div className="inputs">
-                <input className="input title" type="text" name="title" value={dataForm.title ? dataForm.title : ''} onChange={onChangeForm} placeholder="Titulo"/>
-                <textarea className="input" type="text" name="description" value={dataForm.description ? dataForm.description : ''} onChange={onChangeForm} placeholder="Descripción" rows="3"/>
+                <input className="input title" type="text" name="title" value={dataForm.title ? dataForm.title : ''} onChange={onChangeForm} placeholder="Titulo" />
+                <textarea className="input" type="text" name="description" value={dataForm.description ? dataForm.description : ''} onChange={onChangeForm} placeholder="Descripción" rows="3" />
                 <AddTagToItem setDataForm={setDataForm} dataForm={dataForm} />
             </div>
             <button type="submit">{
                 load
-                ?
+                    ?
                     <Loading />
-                :
+                    :
                     'upload'
             }</button>
         </form>
@@ -281,7 +283,7 @@ const AddItemToMenu = ({updateItems}) => {
 
 
         `}</style>
-        
+
     </section>
 }
 
